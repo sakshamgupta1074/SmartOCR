@@ -119,6 +119,8 @@ def cropocr(dic,row,column,image_path):
 	    l= re.findall('\d*%',k)
 	    if l:
 	    	res=re.sub(r'\d*%'," ",k)
+	    else:
+	    	l='100%'
 
 
 # importing xlwt module 
@@ -127,16 +129,18 @@ def cropocr(dic,row,column,image_path):
 	book_ro = open_workbook("test.xls")
 	book = copy(book_ro)  # creates a writeable copy
 	sheet1 = book.get_sheet(0)  # get a first sheet
-	sheet1.write(0,0,'Child')
-	sheet1.write(0,1,'Percentage')
-	sheet1.write(0,2,'Shapes')
-	sheet1.write(0,3,'City/Country')
-	sheet1.write(0,4,'OWN Percentage')
+	sheet1.write(0,0,'ID')
+	sheet1.write(0,1,'Child')
+	sheet1.write(0,2,'Percentage')
+	sheet1.write(0,3,'Shapes')
+	sheet1.write(0,4,'City/Country')
+	sheet1.write(0,5,'Own Percentage')
 
-	sheet1.write(row,0,res)
-	sheet1.write(row,1,prec)
-	sheet1.write(row,2,shape)
-	sheet1.write(row,3,m)
-	sheet1.write(row,4,l)
+	sheet1.write(row,0,row)
+	sheet1.write(row,1,res)
+	sheet1.write(row,2,prec)
+	sheet1.write(row,3,shape)
+	sheet1.write(row,4,m)
+	sheet1.write(row,5,l)
 
 	book.save("test.xls")

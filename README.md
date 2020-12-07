@@ -3,7 +3,7 @@
 ## Team Name – Trinity
 ## Idea Name – Smart OCR for Organizational Chart
 
-![LOGO](https://user-images.githubusercontent.com/39915573/101400762-5f302380-38f7-11eb-8957-371e926faa92.png)
+![LOGO](https://user-images.githubusercontent.com/39915573/101400762-5f302380-38f7-11eb-8957-371e926faa92.png =500x500)
 
 ### Technology Stack – 
     • TensorFlow

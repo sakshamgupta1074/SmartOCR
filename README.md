@@ -1,8 +1,8 @@
-#HACKPIONS – EY GDS Hackathon
-##Theme- Image to Text
-##Team Name – Trinity
-##Idea Name – Smart OCR for Organizational Chart
-###Technology Stack – 
+# HACKPIONS – EY GDS Hackathon
+## Theme- Image to Text
+## Team Name – Trinity
+## Idea Name – Smart OCR for Organizational Chart
+### Technology Stack – 
     • TensorFlow
     • Hough lines
     • Microsoft Azure OCR
@@ -17,9 +17,9 @@
     • Azure Docker Registry
     • Azure Web Services
     
-Our objective was to create an algorithm which will work for two different case studies.
-Case Study 1 - Convert any non editable document of any format into an editable doc format which can be used for any purposes.
-Case Study 2 - Convert organisational chart into editable excel sheet with all entities and functions.
+***Our objective was to create an algorithm which will work for two different case studies.***
+***Case Study 1*** - Convert any non editable document of any format into an editable doc format which can be used for any purposes.
+***Case Study 2*** - Convert organisational chart into editable excel sheet with all entities and functions.
 Our algorithm also detect the different types of shapes in organisational chart using TensorFlow and detec text present in it using Microsoft Azure OCR
 
 Approach to the Cases:

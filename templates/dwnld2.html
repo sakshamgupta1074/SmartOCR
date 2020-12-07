@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Download Page</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../static/assets/css/down.css" />
+		<link rel='shortcut icon' type='image/x-icon' href="../static/favicon.ico?" />
+		<style>
+			.buttonDownload {
+	display: inline-block;
+	position: relative;
+	padding: 10px 25px;
+  
+	background-color: #4CC713;
+	color: white;
+  
+	font-family: sans-serif;
+	text-decoration: none;
+	font-size: 0.9em;
+	text-align: center;
+	text-indent: 15px;
+}
+
+.buttonDownload:hover {
+	background-color: #333;
+	color: white;
+}
+
+.buttonDownload:before, .buttonDownload:after {
+	content: ' ';
+	display: block;
+	position: absolute;
+	left: 15px;
+	top: 52%;
+}
+
+.buttonDownload:before {
+	width: 10px;
+	height: 2px;
+	border-style: solid;
+	border-width: 0 2px 2px;
+}
+
+.buttonDownload:after {
+	width: 0;
+	height: 0;
+	margin-left: 1px;
+	margin-top: -7px;
+  
+	border-style: solid;
+	border-width: 4px 4px 0 4px;
+	border-color: transparent;
+	border-top-color: inherit;
+	
+	animation: downloadArrow 2s linear infinite;
+	animation-play-state: paused;
+}
+
+.buttonDownload:hover:before {
+	border-color: #4CC713;
+}
+
+.buttonDownload:hover:after {
+	border-top-color: #4CC713;
+	animation-play-state: running;
+}
+
+@keyframes downloadArrow {
+	0% {
+		margin-top: -7px;
+		opacity: 1;
+	}
+	
+	0.001% {
+		margin-top: -15px;
+		opacity: 0;
+	}
+	
+	50% {
+		opacity: 1;
+	}
+	
+	100% {
+		margin-top: 0;
+		opacity: 0;
+	}
+}
+		</style>
+	</head>
+	<body>
+
+			<header id="header">
+				<h1 style="color: #FED8B1"><a href="index.html">TRINITY<span></span></a></h1>
+			</header>
+
+				<section id="banner">
+					<div class="inner">
+						<header>
+							<h1 style="color: orange">Hackpions – EY GDS Hackathon </h1>
+						</header>
+						<h3 style="color: orange">Team Trinity</h3>
+						<br>
+						<h4 style="color: #FED8B1"><img src="../static/images/test4.jpg" width="400" height="400" style="float: left;">&nbsp &nbsp &nbsp &nbsp Your excel file is ready to be downloaded.</h4>
+						<br>
+						<h4 style="color: #FED8B1">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp The image on the left shows all the &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp labelled shapes in the organizational chart.</h4>
+						<br><br>
+						<a href="/getfile2" class="buttonDownload"><b>Download Excel File</b></a>
+						<br>
+					</div>
+
+				</section>
+
+			<script src="../static/assets/js/jquery.min.js"></script>
+			<script src="../static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="../static/assets/js/skel.min.js"></script>
+			<script src="../static/assets/js/util.js"></script>
+			<script src="../static/assets/js/main.js"></script>
+
+	</body>
+</html>

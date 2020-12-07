@@ -30,7 +30,7 @@ Steps followed: -
     (3) Extracted Text is saved in the editable document ( .doc).
 
 Case 2: - Organizational Chart to MS-Excel
-Steps followed: -
+Steps followed:-
     (1) Training of TensorFlow model to detect the shapes in the org chart.
     (2) Extraction of coordinates of entities.
     (3) Applying OCR on the extracted coordinates.

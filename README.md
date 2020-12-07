@@ -1,8 +1,8 @@
-HACKPIONS – EY GDS Hackathon
-Theme- Image to Text
-Team Name – Trinity
-Idea Name – Smart OCR for Organizational Chart
-Technology Stack – 
+#HACKPIONS – EY GDS Hackathon
+##Theme- Image to Text
+##Team Name – Trinity
+##Idea Name – Smart OCR for Organizational Chart
+###Technology Stack – 
     • TensorFlow
     • Hough lines
     • Microsoft Azure OCR

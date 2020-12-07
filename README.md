@@ -16,7 +16,9 @@
     • Wand
     • Azure Docker Registry
     • Azure Web Services
-    
+
+![image](https://user-images.githubusercontent.com/39915573/101396827-e11d4e00-38f1-11eb-8d40-4e9158a40807.png)
+
 ***Our objective was to create an algorithm which will work for two different case studies.***
 
 ***Case Study 1*** - Convert any non editable document of any format into an editable doc format which can be used for any purposes.<br>
@@ -45,4 +47,6 @@ Mid-point of each entity is calculated (using coordinates) and nearest neighbour
 
 Whole process is dockerized so it can easily deployable in any Operating system according to Organizations’ Requirement and on any Cloud Services like Microsoft Azure Cloud.
 
-Drive Link for the models - https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing
+***Drive Link for the models*** - https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing
+
+

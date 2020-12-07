@@ -17,8 +17,7 @@
     • Azure Docker Registry
     • Azure Web Services
 
-<div class="text-white bg-gray-dark mb-2">![image](https://user-images.githubusercontent.com/39915573/101396827-e11d4e00-38f1-11eb-8d40-4e9158a40807.png)
-</div>
+![image](https://user-images.githubusercontent.com/39915573/101396827-e11d4e00-38f1-11eb-8d40-4e9158a40807.png)
 
 ***Our objective was to create an algorithm which will work for two different case studies.***
 
@@ -52,5 +51,7 @@ Whole process is dockerized so it can easily deployable in any Operating system 
 ![image](https://user-images.githubusercontent.com/39915573/101397086-3ce7d700-38f2-11eb-8bee-361d8e4314f1.png)
 
 ***Youtube Link for the Demonstration Video*** - https://youtu.be/y8ORcCOSLec
+
 ***Docker Container*** - https://hub.docker.com/r/sakshamgupta1074/trinity
+
 ***Drive Link for the models*** - https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing

@@ -3,7 +3,7 @@
 ## Team Name – Trinity
 ## Idea Name – Smart OCR for Organizational Chart
 
-![LOGO](https://user-images.githubusercontent.com/39915573/101400762-5f302380-38f7-11eb-8957-371e926faa92.png =500x500)
+![LOGO](https://user-images.githubusercontent.com/39915573/101400762-5f302380-38f7-11eb-8957-371e926faa92.png | width=500)
 
 ### Technology Stack – 
     • TensorFlow
@@ -20,7 +20,7 @@
     • Azure Docker Registry
     • Azure Web Services
 
-![image](https://user-images.githubusercontent.com/39915573/101396827-e11d4e00-38f1-11eb-8d40-4e9158a40807.png)
+![Copy of TECHNOLOGY STACK (1)](https://user-images.githubusercontent.com/39915573/101400861-81c23c80-38f7-11eb-8888-c8fed1420850.png)
 
 ***Our objective was to create an algorithm which will work for two different case studies.***
 

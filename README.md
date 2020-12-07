@@ -3,7 +3,7 @@
 ## Team Name – Trinity
 ## Idea Name – Smart OCR for Organizational Chart
 
-![LOGO](https://user-images.githubusercontent.com/39915573/101400762-5f302380-38f7-11eb-8957-371e926faa92.png | width=500)
+![LOGO](https://user-images.githubusercontent.com/39915573/101400762-5f302380-38f7-11eb-8957-371e926faa92.png)
 
 ### Technology Stack – 
     • TensorFlow
@@ -49,6 +49,10 @@ Our algorithm also detect the different types of shapes in organisational chart 
 Mid-point of each entity is calculated (using coordinates) and nearest neighbour is found and then the relation between the both is check using Hough lines transformation (line detection) and then the excel is updated.
 
 Whole process is dockerized so it can easily deployable in any Operating system according to Organizations’ Requirement and on any Cloud Services like Microsoft Azure Cloud.
+
+### Process Flow Diagram
+
+![IMAGE PROCESSING (3)(1)](https://user-images.githubusercontent.com/39915573/101401524-7ae7f980-38f8-11eb-9795-97e7d2b73b3c.png)
 
 ***Youtube Link for the Demonstration Video*** - https://youtu.be/y8ORcCOSLec
 

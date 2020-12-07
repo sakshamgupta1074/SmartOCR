@@ -47,9 +47,6 @@ Mid-point of each entity is calculated (using coordinates) and nearest neighbour
 
 Whole process is dockerized so it can easily deployable in any Operating system according to Organizations’ Requirement and on any Cloud Services like Microsoft Azure Cloud.
 
-## Process FLow Diagram
-![image](https://user-images.githubusercontent.com/39915573/101397086-3ce7d700-38f2-11eb-8bee-361d8e4314f1.png)
-
 ***Youtube Link for the Demonstration Video*** - https://youtu.be/y8ORcCOSLec
 
 ***Docker Container*** - https://hub.docker.com/r/sakshamgupta1074/trinity

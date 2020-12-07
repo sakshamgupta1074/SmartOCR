@@ -21,10 +21,11 @@
 
 ***Case Study 1*** - Convert any non editable document of any format into an editable doc format which can be used for any purposes.<br>
 ***Case Study 2*** - Convert organisational chart into editable excel sheet with all entities and functions.
+
 Our algorithm also detect the different types of shapes in organisational chart using TensorFlow and detec text present in it using Microsoft Azure OCR
 
-Approach to the Cases:
-Case 1: - File formats to Editable Format
+### Approach to the Cases:
+    ***Case 1***: - File formats to Editable Format
 Steps followed: -
     (1) Convert the different formats (ppt, docx, pdf, jpeg, png) to jpg. 
     (2) Apply Microsoft Azure OCR to the converted jpg and extract the text.

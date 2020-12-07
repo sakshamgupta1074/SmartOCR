@@ -17,7 +17,8 @@
     • Azure Docker Registry
     • Azure Web Services
 
-![image](https://user-images.githubusercontent.com/39915573/101396827-e11d4e00-38f1-11eb-8d40-4e9158a40807.png)
+<div class="text-white bg-gray-dark mb-2">![image](https://user-images.githubusercontent.com/39915573/101396827-e11d4e00-38f1-11eb-8d40-4e9158a40807.png)
+</div>
 
 ***Our objective was to create an algorithm which will work for two different case studies.***
 

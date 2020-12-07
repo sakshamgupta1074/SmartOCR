@@ -25,22 +25,24 @@
 Our algorithm also detect the different types of shapes in organisational chart using TensorFlow and detec text present in it using Microsoft Azure OCR
 
 ### Approach to the Cases:
-    ***Case 1***: - File formats to Editable Format
-Steps followed: -
+
+***Case 1: - File formats to Editable Format***
+#### Steps followed: -
     (1) Convert the different formats (ppt, docx, pdf, jpeg, png) to jpg. 
     (2) Apply Microsoft Azure OCR to the converted jpg and extract the text.
     (3) Extracted Text is saved in the editable document ( .doc).
 
-Case 2: - Organizational Chart to MS-Excel
-Steps followed:-
+***Case 2: - Organizational Chart to MS-Excel***
+#### Steps followed:-
     (1) Training of TensorFlow model to detect the shapes in the org chart.
     (2) Extraction of coordinates of entities.
     (3) Applying OCR on the extracted coordinates.
     (4) Saving the extracted text to excel (.xls format)
     (5) Applying delimiter to the extracted text for extraction of percentage and country/city.
-For child-parent relationship: -
+
+### For child-parent relationship: -
 Mid-point of each entity is calculated (using coordinates) and nearest neighbour is found and then the relation between the both is check using Hough lines transformation (line detection) and then the excel is updated.
+
 Whole process is dockerized so it can easily deployable in any Operating system according to Organizations’ Requirement and on any Cloud Services like Microsoft Azure Cloud.
 
 Drive Link for the models - https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing
-

@@ -18,7 +18,8 @@
     • Azure Web Services
     
 ***Our objective was to create an algorithm which will work for two different case studies.***
-***Case Study 1*** - Convert any non editable document of any format into an editable doc format which can be used for any purposes.
+
+***Case Study 1*** - Convert any non editable document of any format into an editable doc format which can be used for any purposes.<br>
 ***Case Study 2*** - Convert organisational chart into editable excel sheet with all entities and functions.
 Our algorithm also detect the different types of shapes in organisational chart using TensorFlow and detec text present in it using Microsoft Azure OCR
 

@@ -6,6 +6,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="../static/assets/css/down.css" />
 		<link rel='shortcut icon' type='image/x-icon' href="../static/favicon.ico?" />
+		<script type='text/javascript'>
+
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+
+</script>
 		<style>
 			.buttonDownload {
 	display: inline-block;
@@ -91,7 +108,7 @@
 	<body>
 
 			<header id="header">
-				<h1 style="color: #FED8B1"><a href="index.html">TRINITY<span></span></a></h1>
+				<h1 style="color: #FED8B1"><a href="/">TRINITY<span></span></a></h1>
 			</header>
 
 				<section id="banner">
@@ -101,7 +118,7 @@
 						</header>
 						<h3 style="color: orange">Team Trinity</h3>
 						<br>
-						<h4 style="color: #FED8B1"><img src="../static/images/test4.jpg" width="400" height="400" style="float: left;">&nbsp &nbsp &nbsp &nbsp Your excel file is ready to be downloaded.</h4>
+						<h4 style="color: #FED8B1"><img src="{{ user_image }}" alt="Output Image" width="400" height="400" style="float: left;">&nbsp &nbsp &nbsp &nbsp Your excel file is ready to be downloaded.</h4>
 						<br>
 						<h4 style="color: #FED8B1">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp The image on the left shows all the &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp labelled shapes in the organizational chart.</h4>
 						<br><br>

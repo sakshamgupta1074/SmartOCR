@@ -144,3 +144,4 @@ def cropocr(dic,row,column,image_path):
 	sheet1.write(row,5,l)
 
 	book.save("test.xls")
+

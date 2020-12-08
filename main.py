@@ -1,13 +1,15 @@
+import glob
+import json
+import os
+import glob
+import sys
+import requests
+import time
+import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon
+from PIL import Image
+from io import BytesIO
 def ocr(image_path):
-	import json
-	import os
-	import sys
-	import requests
-	import time
-	import matplotlib.pyplot as plt
-	from matplotlib.patches import Polygon
-	from PIL import Image
-	from io import BytesIO
 	os.environ['COMPUTER_VISION_SUBSCRIPTION_KEY'] = 'b080de7cbdda4fd6817e83e3fdf6706f'
 	os.environ['COMPUTER_VISION_ENDPOINT'] = 'https://imagetotextey.cognitiveservices.azure.com/'
 
@@ -96,7 +98,7 @@ def alltojpg(mainfilename):
 				ocr(newfilename)
 	elif mainfilename.endswith('.doc'):
 		from wand.image import Image
-		f = mainfilename
+		f = mainfilename	
 		with(Image(filename=f, resolution=300)) as source: 
 			for i, image in enumerate(source.sequence):
 				newfilename = head + str(i + 1) + '.jpeg'
@@ -132,7 +134,7 @@ def alltoexcel(mainfilename):
 		f = mainfilename
 		with(Image(filename=f, resolution=300)) as source: 
 			for i, image in enumerate(source.sequence):
-				newfilename = head + str(i + 1) + '.jpeg'
+				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
 		return newfilename
 	elif mainfilename.endswith('.ppt'):
@@ -140,7 +142,7 @@ def alltoexcel(mainfilename):
 		f = mainfilename
 		with(Image(filename=f, resolution=300)) as source: 
 			for i, image in enumerate(source.sequence):
-				newfilename = head + str(i + 1) + '.jpeg'
+				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
 		return newfilename
 	elif mainfilename.endswith('.doc'):
@@ -148,7 +150,7 @@ def alltoexcel(mainfilename):
 		f = mainfilename
 		with(Image(filename=f, resolution=300)) as source: 
 			for i, image in enumerate(source.sequence):
-				newfilename = head + str(i + 1) + '.jpeg'
+				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
 		return newfilename
 	elif mainfilename.endswith('.docx'):
@@ -156,7 +158,7 @@ def alltoexcel(mainfilename):
 		f = mainfilename
 		with(Image(filename=f, resolution=300)) as source: 
 			for i, image in enumerate(source.sequence):
-				newfilename = head + str(i + 1) + '.jpeg'
+				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
 		return newfilename
 	elif mainfilename.endswith('.png'):
@@ -173,3 +175,8 @@ def alltoexcel(mainfilename):
 def convertndocr(doc_path):
 	open('file.doc', "w").close()
 	alltojpg(doc_path)
+
+def deletedir():
+	files = glob.glob('/tempwand/*')
+	for f in files:
+	    os.remove(f)

@@ -17,6 +17,10 @@ import imgtoxl
 def load_image_into_numpy_array(path):
     """Load an image from file into a numpy array.
 
+    Puts image into numpy array to feed into tensorflow graph.
+    Note that by convention we put it into a numpy array with shape
+    (height, width, channels), where channels=3 for RGB.
+
     Args:
       path: the file path to the image
 
@@ -37,6 +41,7 @@ def detectshapescs2(IMAGE_PATH):
 
     PATH_TO_CFG = PATH_TO_MODEL_DIR + "pipeline.config"
     PATH_TO_CKPT = ""
+    
 
     print('Loading model... ', end='')
     start_time = time.time()
@@ -66,6 +71,9 @@ def detectshapescs2(IMAGE_PATH):
     print('Running inference for {}... '.format(image_path), end='')
 
     image_np = np.array(Image.open(image_path))
+    if(len(image_np.shape)==2):
+        image_np = np.stack((image_np,)*3, axis=-1)
+    print(image_path)
 
 
     input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)

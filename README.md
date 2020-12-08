@@ -56,6 +56,4 @@ Whole process is dockerized so it can easily deployable in any Operating system 
 
 ***Youtube Link for the Demonstration Video*** - https://youtu.be/y8ORcCOSLec
 
-***Docker Container*** - https://hub.docker.com/r/sakshamgupta1074/trinity
-
 ***Drive Link for the models*** - https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing

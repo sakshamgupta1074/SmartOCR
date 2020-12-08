@@ -20,7 +20,7 @@
     • Azure Docker Registry
     • Azure Web Services
 
-![Copy of TECHNOLOGY STACK (1)](https://user-images.githubusercontent.com/39915573/101400861-81c23c80-38f7-11eb-8888-c8fed1420850.png)
+![Copy of TECHNOLOGY STACK](https://user-images.githubusercontent.com/54718939/101524235-b0035300-39af-11eb-8a48-68b79faeb2fd.jpg)
 
 ***Our objective was to create an algorithm which will work for two different case studies.***
 
@@ -48,11 +48,15 @@ Our algorithm also detect the different types of shapes in organisational chart 
 ### For child-parent relationship: -
 Mid-point of each entity is calculated (using coordinates) and nearest neighbour is found and then the relation between the both is check using Hough lines transformation (line detection) and then the excel is updated.
 
+
+![Line Detection](https://user-images.githubusercontent.com/54718939/101524369-d45f2f80-39af-11eb-8863-54dd9b37d14f.jpg)
+
+
 Whole process is dockerized so it can easily deployable in any Operating system according to Organizations’ Requirement and on any Cloud Services like Microsoft Azure Cloud.
 
 ### Process Flow Diagram
 
-![IMAGE PROCESSING (3)(1)](https://user-images.githubusercontent.com/39915573/101401524-7ae7f980-38f8-11eb-9795-97e7d2b73b3c.png)
+![IMAGE PROCESSING](https://user-images.githubusercontent.com/54718939/101524088-7df1f100-39af-11eb-8a32-30f1a2a9bdfe.jpg)
 
 ***Youtube Link for the Demonstration Video*** - https://youtu.be/y8ORcCOSLec
 

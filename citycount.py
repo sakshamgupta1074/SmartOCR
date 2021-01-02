@@ -1,6 +1,6 @@
 from geopy.geocoders import Nominatim
 
-geolocator = Nominatim(timeout=3)
+geolocator = Nominatim(timeout=3,user_agent="Shivasapp")
 
 def citycountname(cityname):
 	'''

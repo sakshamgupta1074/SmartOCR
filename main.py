@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 from PIL import Image
 from io import BytesIO
+from xlutils.copy import copy    
+from xlrd import open_workbook
+import xlsxwriter
+import detect3
 def ocr(image_path):
 	os.environ['COMPUTER_VISION_SUBSCRIPTION_KEY'] = 'b080de7cbdda4fd6817e83e3fdf6706f'
 	os.environ['COMPUTER_VISION_ENDPOINT'] = 'https://imagetotextey.cognitiveservices.azure.com/'
@@ -124,6 +128,9 @@ def alltojpg(mainfilename):
 		ocr(mainfilename)
 
 def alltoexcel(mainfilename):
+	workbook = xlsxwriter.Workbook('graph.xls')
+	worksheet = workbook.add_worksheet("Org_Chart-1")
+	workbook.close()
 	import ntpath
 	ntpath.basename("a/b/c")
 	head, tail = ntpath.split(mainfilename)
@@ -132,44 +139,60 @@ def alltoexcel(mainfilename):
 	if mainfilename.endswith('.pdf'):
 		from wand.image import Image
 		f = mainfilename
-		with(Image(filename=f, resolution=300)) as source: 
+		with(Image(filename=f, resolution=300)) as source:
+			count=0
 			for i, image in enumerate(source.sequence):
+				count=count+1
 				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2(newfilename,"Org_Chart-"+str(count))
 		return newfilename
 	elif mainfilename.endswith('.ppt'):
 		from wand.image import Image
 		f = mainfilename
-		with(Image(filename=f, resolution=300)) as source: 
+		with(Image(filename=f, resolution=300)) as source:
+			count=0 
 			for i, image in enumerate(source.sequence):
+				count=count+1
 				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2(newfilename,"Org_Chart-"+str(count))
 		return newfilename
 	elif mainfilename.endswith('.doc'):
 		from wand.image import Image
 		f = mainfilename
-		with(Image(filename=f, resolution=300)) as source: 
+		with(Image(filename=f, resolution=300)) as source:
+			count=0 
 			for i, image in enumerate(source.sequence):
+				count=count+1
 				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2(newfilename,"Org_Chart-"+str(count))
 		return newfilename
 	elif mainfilename.endswith('.docx'):
 		from wand.image import Image
 		f = mainfilename
 		with(Image(filename=f, resolution=300)) as source: 
+			count=0
 			for i, image in enumerate(source.sequence):
+				count=count+1
 				newfilename = head + str(i + 1) + '.jpg'
 				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2(newfilename,"Org_Chart-"+str(count))
 		return newfilename
 	elif mainfilename.endswith('.png'):
 		from PIL import Image
 		im = Image.open(mainfilename)
 		rgb_im = im.convert('RGB')
 		rgb_im.save(head+'/'+'tail.jpg')
-		return head+'/'+'tail.jpg'
+		newfile=head+'/'+'tail.jpg'
+		detect3.detectshapescs2(newfile,"Org_Chart-"+str(1))
+		return head+'/'+'tail.jpg',
 	elif mainfilename.endswith('.jpg'):
+		detect3.detectshapescs2(mainfilename,"Org_Chart-"+str(1))
 		return mainfilename
 	elif mainfilename.endswith('.jpeg'):
+		detect3.detectshapescs2(mainfilename,"Org_Chart-"+str(1))
 		return mainfilename
 
 def convertndocr(doc_path):

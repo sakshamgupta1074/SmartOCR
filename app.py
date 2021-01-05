@@ -40,8 +40,6 @@ def upload_file():
                 return redirect(url_for('hello1'))
             elif(optn=='op2'):
                 img_loc=main.alltoexcel(location)
-                print(img_loc)
-                detect3.detectshapescs2(img_loc)
                 main.deletedir()
                 return redirect(url_for('hello2'))
     return render_template('index.html')

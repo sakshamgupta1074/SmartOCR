@@ -13,7 +13,9 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import warnings
 import orgtoxl
-
+from xlutils.copy import copy    
+from xlrd import open_workbook
+import xlsxwriter
 def load_image_into_numpy_array(path):
     """Load an image from file into a numpy array.
 
@@ -33,7 +35,15 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 tf.get_logger().setLevel('ERROR')
 
-def detectshapescs2(IMAGE_PATH):
+# def detectmorethanone(img_p,count):
+#     workbook = xlsxwriter.Workbook('graph.xls')
+#     workbook.close()
+#     p_count=count
+#     while(count!=0):
+#         detectshapescs2(img_p,count,p_count)
+#         count=count-1
+
+def detectshapescs2(IMAGE_PATH,scount):
     PATH_TO_MODEL_DIR = ''
 
     LABEL_FILENAME = 'label_map.pbtxt'
@@ -117,4 +127,4 @@ def detectshapescs2(IMAGE_PATH):
     im = Image.fromarray(image_np_with_detections)
     im.save('static/images/test4.jpg')
     print("here_org")
-    orgtoxl.toexcel(coordinates,IMAGE_PATH)
+    orgtoxl.toexcel(coordinates,IMAGE_PATH,scount)

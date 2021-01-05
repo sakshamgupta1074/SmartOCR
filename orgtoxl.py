@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 import networkx as nx
 from skimage.measure import approximate_polygon
-from xlutils.copy import copy    
-from xlrd import open_workbook
+from xlutils.copy import copy
+import xlrd    
 import xlsxwriter
 import cv2
 from collections import defaultdict
@@ -47,19 +47,19 @@ def color(path_original,cor):
 	cv2.imwrite('colored_black.jpg', image)
 
 #Function to convert org chart to excel	
-def toexcel(cor,path_original):
+def toexcel(cor,path_original,scount):
 	print("IN SKNW")
 	print(path_original)
 	color(path_original,cor)
 	path_black='colored_black.jpg'
 	image = cv2.imread(path_original)
-	workbook = xlsxwriter.Workbook('graph.xls')
-	worksheet = workbook.add_worksheet()
-	workbook.close()
 	count,node_levels,ps,g,te= sknw_main(path_black,cor)
-	book_ro = open_workbook("graph.xls")
+	book_ro = xlrd.open_workbook("graph.xls")
 	book = copy(book_ro)  # creates a writeable copy
-	sheet = book.get_sheet(0)  # get a first sheet
+	if scount!="Org_Chart-1":
+		sheet=book.add_sheet(scount)
+	else:
+		sheet = book.get_sheet("Org_Chart-1")  # get a first sheet
 	sheet.write(0,0,'ID')
 	sheet.write(0,1,'Child')
 	sheet.write(0,2,'Immediate Parent')
@@ -67,6 +67,7 @@ def toexcel(cor,path_original):
 	sheet.write(0,4,'Shapes')
 	sheet.write(0,6,'City')
 	sheet.write(0,7,'Country')
+	sheet.write(0,8,'Relationship Type')
 	sheet.write(0,3,'Own Percentage')
 	idd='UID1'
 	row=2
@@ -148,8 +149,13 @@ def toexcel(cor,path_original):
 					per= re.findall('\d*%',kk)
 					if per:
 						res=re.sub(r'\d*%'," ",kk)
+						# print(per)
 					else:
-						per='100%'
+						per=['100%']
+					if int(str(per[0])[:-1])>50:
+						sheet.write(row,8,"CONTROL")
+					else:
+						sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE")
 					city = re.search('\(([^)]+)', sem)
 
 					if city:
@@ -216,8 +222,13 @@ def toexcel(cor,path_original):
 							per= re.findall('\d*%',kk)
 							if per:
 								res=re.sub(r'\d*%'," ",kk)
+								# print(per)
 							else:
-								per='100%'
+								per=['100%']
+							if int(str(per[0])[:-1])>50:
+								sheet.write(row,8,"CONTROL")
+							else:
+								sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE")
 							if city:
 								city=city.group(1)
 								res=re.sub("[\(\[].*?[\)\]]", "", sem)

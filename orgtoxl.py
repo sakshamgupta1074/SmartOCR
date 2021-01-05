@@ -18,15 +18,12 @@ import sys
 import requests
 import time
 from matplotlib.patches import Polygon
-from PIL import Image
 from io import BytesIO
 import io
 import re
 import json
 from shapely.geometry import Polygon
-import matplotlib
 from geopy.geocoders import Nominatim
-from shapely.geometry import Polygon
 node_levels=[]
 fin=[]
 te={}
@@ -47,13 +44,14 @@ def color(path_original,cor):
 		overlay = image.copy()
 		cv2.fillPoly(overlay, exterior, color=(0, 0, 0))
 		cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0, image)
-		cv2.imwrite('colored_black.jpg', image)
-		return 'colored_black.jpg'
+	cv2.imwrite('colored_black.jpg', image)
 
 #Function to convert org chart to excel	
-def toexcel(path_original,cor):
-
-	path_black=color(path_original,cor)
+def toexcel(cor,path_original):
+	print("IN SKNW")
+	print(path_original)
+	color(path_original,cor)
+	path_black='colored_black.jpg'
 	image = cv2.imread(path_original)
 	workbook = xlsxwriter.Workbook('graph.xls')
 	worksheet = workbook.add_worksheet()
@@ -90,7 +88,8 @@ def toexcel(path_original,cor):
 		res=re.sub("[\(\[].*?[\)\]]", "", sem)
 		try:
 			city,w=citycountname(city)
-		except: 
+		except Exception as e:
+			print(e)
 			city=''
 			w=''
 		start = sem.find( '(' )
@@ -158,7 +157,8 @@ def toexcel(path_original,cor):
 						res=re.sub("[\(\[].*?[\)\]]", "", sem)
 						try:
 							city,w=citycountname(city)
-						except:
+						except Exception as e:
+							print(e)
 							continue
 							city=''
 							w=''
@@ -223,7 +223,8 @@ def toexcel(path_original,cor):
 								res=re.sub("[\(\[].*?[\)\]]", "", sem)
 								try:
 									city,w=citycountname(city)
-								except :
+								except Exception as e:
+									print(e)
 									continue
 									city=''
 									w=''
@@ -246,7 +247,8 @@ def toexcel(path_original,cor):
 							sheet.write(row,3,per)
 
 							row=row+1						# sheet.write(row,0,result)
-					except :
+					except Exception as e:
+						print(e)
 						continue
 
 	book.save("graph.xls")
@@ -267,7 +269,8 @@ def coloring(xii,node_levelsii,imageii,path_black,coordinates):
 	x0=0
 	try:
 		x1=node_levelsii[xii][0][0]-20
-	except:
+	except Exception as e:
+		print(e)
 		x1=0
 	y0=0
 	y1=width
@@ -292,8 +295,8 @@ def sknw_main(path_black,cor):
 
 	# draw edges by pts
 	for (s,e) in graph.edges():
-	    ps = graph[s][e]['pts']
-	    plt.plot(ps[:,1], ps[:,0], 'blue')
+		ps = graph[s][e]['pts']
+		plt.plot(ps[:,1], ps[:,0], 'blue')
 	cord=graph.edges
 	# draw node by o
 	nodes = graph.nodes()
@@ -302,16 +305,16 @@ def sknw_main(path_black,cor):
 
 	#to find nodes between entities
 	def FindPoint(x1, y1, x2, y2, x, y): 
-	    if (x > y1 and x < y2 and y > x1 and y < x2): 
-	    	
-	    	return True
-	    else :
-	    	
-	    	return False
+		if (x > y1 and x < y2 and y > x1 and y < x2): 
+			
+			return True
+		else :
+			
+			return False
 
 
 	fin=[]
-    #to store parent entity
+	#to store parent entity
 	def parent_entity(dic,ps,cor):
 		ps=np.array(ps)
 		ps=ps.tolist()
@@ -381,18 +384,18 @@ def sknw_loop(cor):
 	# draw image
 	# draw edges by pts
 	for (s,e) in graph.edges():
-	    ps = graph[s][e]['pts']
-	    plt.plot(ps[:,1], ps[:,0], 'blue')
+		ps = graph[s][e]['pts']
+		plt.plot(ps[:,1], ps[:,0], 'blue')
 	cord=graph.edges
 	# draw node by o
 	nodes = graph.nodes()
 	ps = np.array([nodes[i]['o'] for i in nodes])
 	def FindPoint(x1, y1, x2, y2, x, y): 
-	    if (x >= y1 and x <= y2 and y >= x1 and y <= x2): 
-	    	return True
-	    else :
-	    	
-	    	return False
+		if (x >= y1 and x <= y2 and y >= x1 and y <= x2): 
+			return True
+		else :
+			
+			return False
 
 
 	fin=[]
@@ -485,22 +488,22 @@ def textt(dic,n,image_path):
 	missing_env = False
 	# Add your Computer Vision subscription key and endpoint to your environment variables.
 	if 'COMPUTER_VISION_ENDPOINT' in os.environ:
-	    endpoint = os.environ['COMPUTER_VISION_ENDPOINT']
+		endpoint = os.environ['COMPUTER_VISION_ENDPOINT']
 	else:
-	    print("From Azure Cognitive Service, retrieve your endpoint and subscription key.")
-	    print("\nSet the COMPUTER_VISION_ENDPOINT environment variable, such as \"https://westus2.api.cognitive.microsoft.com\".\n")
-	    missing_env = True
+		print("From Azure Cognitive Service, retrieve your endpoint and subscription key.")
+		print("\nSet the COMPUTER_VISION_ENDPOINT environment variable, such as \"https://westus2.api.cognitive.microsoft.com\".\n")
+		missing_env = True
 
 	if 'COMPUTER_VISION_SUBSCRIPTION_KEY' in os.environ:
-	    subscription_key = os.environ['COMPUTER_VISION_SUBSCRIPTION_KEY']
+		subscription_key = os.environ['COMPUTER_VISION_SUBSCRIPTION_KEY']
 	else:
-	    print("From Azure Cognitive Service, retrieve your endpoint and subscription key.")
-	    print("\nSet the COMPUTER_VISION_SUBSCRIPTION_KEY environment variable, such as \"1234567890abcdef1234567890abcdef\".\n")
-	    missing_env = True
+		print("From Azure Cognitive Service, retrieve your endpoint and subscription key.")
+		print("\nSet the COMPUTER_VISION_SUBSCRIPTION_KEY environment variable, such as \"1234567890abcdef1234567890abcdef\".\n")
+		missing_env = True
 
 	if missing_env:
-	    print("**Restart your shell or IDE for changes to take effect.**")
-	    sys.exit()
+		print("**Restart your shell or IDE for changes to take effect.**")
+		sys.exit()
 
 	text_recognition_url = endpoint + "/vision/v3.1/read/analyze"
 
@@ -514,7 +517,7 @@ def textt(dic,n,image_path):
 	image_data = img_byte_arr.getvalue()
 	headers = {'Ocp-Apim-Subscription-Key': subscription_key,'Content-Type': 'application/octet-stream'}
 	response = requests.post(
-	    text_recognition_url, headers=headers, data=image_data)
+		text_recognition_url, headers=headers, data=image_data)
 	response.raise_for_status()
 	# Holds the URI used to retrieve the recognized text.
 	operation_url = response.headers["Operation-Location"]
@@ -523,31 +526,31 @@ def textt(dic,n,image_path):
 	analysis = {}
 	poll = True
 	while (poll):
-	    response_final = requests.get(
-	        response.headers["Operation-Location"], headers=headers)
-	    analysis = response_final.json()
-	    
+		response_final = requests.get(
+			response.headers["Operation-Location"], headers=headers)
+		analysis = response_final.json()
+		
 
 
-	    time.sleep(1)
-	    if ("analyzeResult" in analysis):
-	        poll = False
-	    if ("status" in analysis and analysis['status'] == 'failed'):
-	        poll = False
+		time.sleep(1)
+		if ("analyzeResult" in analysis):
+			poll = False
+		if ("status" in analysis and analysis['status'] == 'failed'):
+			poll = False
 	temp=[]
 	open('file.doc', "w").close()
 	if ("analyzeResult" in analysis):
 
-	    polygons = ((line['text'])
-	                for line in analysis["analyzeResult"]["readResults"][0]["lines"])
-	    for line in polygons:
-	        result = line.split("\n")
-	        res= ""
-	        for i in result:
-	            res+=i
-	            temp.append(res) 
-	    res = ' '.join(str(e) for e in temp)
-	    return res,prec,shape
+		polygons = ((line['text'])
+					for line in analysis["analyzeResult"]["readResults"][0]["lines"])
+		for line in polygons:
+			result = line.split("\n")
+			res= ""
+			for i in result:
+				res+=i
+				temp.append(res) 
+		res = ' '.join(str(e) for e in temp)
+		return res,prec,shape
 
 # cor=[[156, 274, 316, 325, 97.36135005950928, 'rectangle'], [355, 275, 516, 325, 97.23899364471436, 'rectangle'], [562, 99, 719, 149, 97.17506170272827, 'rectangle'], [382, 99, 542, 149, 96.84385061264038, 'rectangle'], [23, 99, 183, 148, 96.81214690208435, 'rectangle'], [442, 457, 602, 507, 96.20250463485718, 'rectangle'], [179, 186, 338, 237, 95.3770399093628, 'rectangle'], [4, 187, 166, 237, 94.89936828613281, 'rectangle'], [278, 362, 439, 414, 94.42919492721558, 'rectangle'], [74, 363, 234, 415, 94.10572648048401, 'rectangle'], [280, 9, 441, 61, 92.82688498497009, 'rectangle'], [112, 455, 194, 516, 68.0224359035492, 'circle'], [265, 99, 345, 157, 67.23973751068115, 'circle'], [43, 274, 123, 335, 54.711222648620605, 'pentagon'], [584, 188, 692, 252, 52.483564615249634, 'triangle'], [482, 364, 561, 428, 40.776342153549194, 'pentagon']]
 # path_original='ey3.jpg'

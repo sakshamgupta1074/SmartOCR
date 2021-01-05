@@ -53,7 +53,7 @@ def detectshapescs2(IMAGE_PATH):
 
     # Restore checkpoint
     ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
-    ckpt.restore(os.path.join(PATH_TO_CKPT, 'ckpt-10')).expect_partial()
+    ckpt.restore(os.path.join(PATH_TO_CKPT, 'ckpt-26')).expect_partial()
 
 
     end_time = time.time()

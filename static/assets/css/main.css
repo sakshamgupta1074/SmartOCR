@@ -2207,6 +2207,20 @@
 		padding: 0.75em 1em;
 	}
 
+	div#loading {
+    width: 500px;
+    height: 374px;
+    align-self:center;
+    align-content: center;
+    text-align: center;
+    background-position: center;
+    margin-right: auto;
+    margin-left: auto;
+    display: none;
+    background: url(../../images/tenor.gif) no-repeat;
+    cursor: wait;
+    }
+	
 	input[type="checkbox"],
 	input[type="radio"] {
 		-moz-appearance: none;

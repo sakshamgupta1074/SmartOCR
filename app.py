@@ -42,6 +42,10 @@ def upload_file():
                 img_loc=main.alltoexcel(location)
                 main.deletedir()
                 return redirect(url_for('hello2'))
+            elif(optn=='op3'):
+                img_loc=main.alltoexcel(location)
+                main.deletedir()
+                return redirect(url_for('hello2'))
     return render_template('index.html')
 
 

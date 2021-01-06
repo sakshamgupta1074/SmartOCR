@@ -69,10 +69,10 @@ def toexcel(cor,path_original,scount,workbook):
 	bold = workbook.add_format({'bold': True})
 	format1 = workbook.add_format({'border': 5,'bold': True,'align': 'center','bg_color': '#FFC7CE'})
 	center = workbook.add_format({'align': 'center'})
-	format2 = workbook.add_format({'border': 2})
+	format2 = workbook.add_format({'align': 'center','border': 2})
 	format3 = workbook.add_format({'border': 5,'bold': True,'align': 'center','bg_color': 'cyan'})
-	format4 = workbook.add_format({'border': 2,'bg_color': '#FF0000','bold': True})
-	format5 = workbook.add_format({'border': 2,'bg_color': '#008000','bold': True})
+	format4 = workbook.add_format({'align': 'center','border': 2,'bg_color': '#FF0000','bold': True})
+	format5 = workbook.add_format({'align': 'center','border': 2,'bg_color': '#008000','bold': True})
 
 	# if scount!="Org_Chart-1":
 	# sheet = workbook.add_worksheet(scount)
@@ -85,7 +85,7 @@ def toexcel(cor,path_original,scount,workbook):
 	sheet.write(0,2,'Immediate Parent',format1)
 	sheet.set_column('C:C', 35)
 	sheet.write(0,5,'Shape Percentage',format1)
-	sheet.set_column('F:F', 15)
+	sheet.set_column('F:F', 20)
 	sheet.write(0,4,'Shapes',format1)
 	sheet.set_column('E:E', 20)
 	sheet.write(0,6,'City',format1)
@@ -118,14 +118,14 @@ def toexcel(cor,path_original,scount,workbook):
 			city,w=citycountname(city)
 		except Exception as e:
 			print(e)
-			city=''
-			w=''
+			city='-'
+			w='-'
 		start = sem.find( '(' )
 		if start != -1:
 			res = sem[0:start-1]
 	else:
-		city =' '
-		w = ' '
+		city ='-'
+		w = '-'
 	prec=round(float(prec),2)
 	prec=str(prec)+'%'
 	sheet.write(1,1,res,format2)
@@ -159,8 +159,8 @@ def toexcel(cor,path_original,scount,workbook):
 						if start != -1:
 							res = sem[0:start-1]                    
 					else:
-						city ='Not Available '
-						w = 'Not Available '
+						city ='-'
+						w = '-'
 
 					kk=res
 					per= re.findall('\d*%',kk)
@@ -194,14 +194,14 @@ def toexcel(cor,path_original,scount,workbook):
 						except Exception as e:
 							print(e)
 							continue
-							city=''
-							w=''
+							city='-'
+							w='-'
 						start = sem.find( '(' )
 						if start != -1:
 							res = sem[0:start-1]
 					else:
-						city =' '
-						w = ' '
+						city ='-'
+						w = '-'
 					prec=round(float(prec),2)
 					prec=str(prec)+'%'  
 					idd='UID'+str(row)
@@ -232,8 +232,8 @@ def toexcel(cor,path_original,scount,workbook):
 								if start != -1:
 									res = sem[0:start-1]
 							else:
-								city =' '
-								w = ' '
+								city ='-'
+								w = '-'
 							kk=res
 							per= re.findall('\d*%',kk)
 							if per:
@@ -265,14 +265,14 @@ def toexcel(cor,path_original,scount,workbook):
 								except Exception as e:
 									print(e)
 									continue
-									city=''
-									w=''
+									city='-'
+									w='-'
 								start = sem.find( '(' )
 								if start != -1:
 									res = sem[0:start-1]
 							else:
-								city =' '
-								w = ' '
+								city ='-'
+								w = '-'
 
 							prec=round(float(prec),2)
 							prec=str(prec)+'%'
@@ -300,7 +300,7 @@ def citycountname(cityname):
 	if sub in loc_dict['display_name']:
 		return (cityname,loc_dict['display_name'].rsplit(', ' , 1)[1])
 	else:
-		return (' ',loc_dict['display_name'].rsplit(',' , 1)[0])
+		return ('-',loc_dict['display_name'].rsplit(',' , 1)[0])
 
 #Function to color levels
 def coloring(xii,node_levelsii,imageii,path_black,coordinates):

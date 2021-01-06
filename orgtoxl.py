@@ -29,7 +29,7 @@ fin=[]
 te={}
 cord_dic=[]
 count=0
-geolocator = Nominatim(timeout=3,user_agent="Shivasapp")
+geolocator = Nominatim(timeout=3,user_agent="countrychecker")
 def color(path_original,cor):
 	image = cv2.imread(path_original)
 	for dic in cor:
@@ -46,29 +46,56 @@ def color(path_original,cor):
 		cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0, image)
 	cv2.imwrite('colored_black.jpg', image)
 
-#Function to convert org chart to excel	
-def toexcel(cor,path_original,scount):
+#Function to convert org chart to excel 
+def toexcel(cor,path_original,scount,workbook):
+
+	# scount="Org_Chart-1"
 	print("IN SKNW")
 	print(path_original)
 	color(path_original,cor)
 	path_black='colored_black.jpg'
 	image = cv2.imread(path_original)
 	count,node_levels,ps,g,te= sknw_main(path_black,cor)
-	book_ro = xlrd.open_workbook("graph.xls")
-	book = copy(book_ro)  # creates a writeable copy
-	if scount!="Org_Chart-1":
-		sheet=book.add_sheet(scount)
-	else:
-		sheet = book.get_sheet("Org_Chart-1")  # get a first sheet
-	sheet.write(0,0,'ID')
-	sheet.write(0,1,'Child')
-	sheet.write(0,2,'Immediate Parent')
-	sheet.write(0,5,'Shape Percentage')
-	sheet.write(0,4,'Shapes')
-	sheet.write(0,6,'City')
-	sheet.write(0,7,'Country')
-	sheet.write(0,8,'Relationship Type')
-	sheet.write(0,3,'Own Percentage')
+	# if scount!="Org_Chart-1":
+	# 	sheet = workbook.add_worksheet(scount)
+
+	# else:
+	sheet = workbook.add_worksheet(scount)
+
+	
+	# book_ro = xlrd.open_workbook("graph.xls")
+	# book = copy(book_ro)  # creates a writeable copy
+	# sheet = workbook.add_worksheet("Org_Chart-1")
+	bold = workbook.add_format({'bold': True})
+	format1 = workbook.add_format({'border': 5,'bold': True,'align': 'center','bg_color': '#FFC7CE'})
+	center = workbook.add_format({'align': 'center'})
+	format2 = workbook.add_format({'border': 2})
+	format3 = workbook.add_format({'border': 5,'bold': True,'align': 'center','bg_color': 'cyan'})
+	format4 = workbook.add_format({'border': 2,'bg_color': '#FF0000','bold': True})
+	format5 = workbook.add_format({'border': 2,'bg_color': '#008000','bold': True})
+
+	# if scount!="Org_Chart-1":
+	# sheet = workbook.add_worksheet(scount)
+	# else:
+	# 	sheet = sheet.get_worksheet("Org_Chart-1")  # get a first sheet
+	sheet.write(0,0,'Unique ID',format1)
+	sheet.set_column('A:A', 15)
+	sheet.write(0,1,'Child',format1)
+	sheet.set_column('B:B', 35)
+	sheet.write(0,2,'Immediate Parent',format1)
+	sheet.set_column('C:C', 35)
+	sheet.write(0,5,'Shape Percentage',format1)
+	sheet.set_column('F:F', 15)
+	sheet.write(0,4,'Shapes',format1)
+	sheet.set_column('E:E', 20)
+	sheet.write(0,6,'City',format1)
+	sheet.set_column('G:G', 20)
+	sheet.write(0,7,'Country',format1)
+	sheet.set_column('H:H', 20)
+	sheet.write(0,8,'Relationship Type',format1)
+	sheet.set_column('I:I', 40)
+	sheet.write(0,3,'Own Percentage',format1)
+	sheet.set_column('D:D', 15)
 	idd='UID1'
 	row=2
 	te=np.array(te)
@@ -101,13 +128,14 @@ def toexcel(cor,path_original,scount):
 		w = ' '
 	prec=round(float(prec),2)
 	prec=str(prec)+'%'
-	sheet.write(1,1,res)
-	sheet.write(1,0,idd)
-	sheet.write(1,5,prec)
-	sheet.write(1,4,shape)
-	sheet.write(1,6,city)
-	sheet.write(1,7,w)
-	sheet.write(1,3,'')
+	sheet.write(1,1,res,format2)
+	sheet.write(1,0,'UID1',format3)
+	sheet.write(1,5,prec,format2)
+	sheet.write(1,4,shape,format2)
+	sheet.write(1,6,city,format2)
+	sheet.write(1,7,w,format2)
+	sheet.write(1,3,'',format2)
+	sheet.write(1,2,'',format2)
 	for i in range(count):
 		coloring(i,node_levels,image,path_original,cor)
 		node_levels,ps,g,te= sknw_loop(cor)
@@ -129,10 +157,10 @@ def toexcel(cor,path_original,scount):
 						res=re.sub("[\(\[].*?[\)\]]", "", sem)
 						start = sem.find( '(' )
 						if start != -1:
-							res = sem[0:start-1]					
+							res = sem[0:start-1]                    
 					else:
-						city =' '
-						w = ' '
+						city ='Not Available '
+						w = 'Not Available '
 
 					kk=res
 					per= re.findall('\d*%',kk)
@@ -140,7 +168,7 @@ def toexcel(cor,path_original,scount):
 						res=re.sub(r'\d*%'," ",kk)
 					else:
 						per='100%'
-					sheet.write(row,2,res)
+					sheet.write(row,2,res,format2)
 
 					result,prec,shape=textt(te[destination],destination,path_original)
 					sem = result
@@ -153,9 +181,9 @@ def toexcel(cor,path_original,scount):
 					else:
 						per=['100%']
 					if int(str(per[0])[:-1])>50:
-						sheet.write(row,8,"CONTROL")
+						sheet.write(row,8,"CONTROL",format5)
 					else:
-						sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE")
+						sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
 					city = re.search('\(([^)]+)', sem)
 
 					if city:
@@ -175,15 +203,15 @@ def toexcel(cor,path_original,scount):
 						city =' '
 						w = ' '
 					prec=round(float(prec),2)
-					prec=str(prec)+'%'	
+					prec=str(prec)+'%'  
 					idd='UID'+str(row)
-					sheet.write(row,0,idd)
-					sheet.write(row,1,res)
-					sheet.write(row,5,prec)
-					sheet.write(row,4,shape)
-					sheet.write(row,6,city)
-					sheet.write(row,7,w)
-					sheet.write(row,3,per)
+					sheet.write(row,0,idd,format3)
+					sheet.write(row,1,res,format2)
+					sheet.write(row,5,prec,format2)
+					sheet.write(row,4,shape,format2)
+					sheet.write(row,6,city,format2)
+					sheet.write(row,7,w,format2)
+					sheet.write(row,3,str(per[0]),format2)
 					row=row+1
 					flag=1
 			if flag==0:
@@ -212,7 +240,7 @@ def toexcel(cor,path_original,scount):
 								res=re.sub(r'\d*%'," ",kk)
 							else:
 								per='100%'
-							sheet.write(row,2,res)
+							sheet.write(row,2,res,format2)
 
 							result,prec,shape=textt(te[destination],destination,path_original)
 							sem = result
@@ -226,9 +254,9 @@ def toexcel(cor,path_original,scount):
 							else:
 								per=['100%']
 							if int(str(per[0])[:-1])>50:
-								sheet.write(row,8,"CONTROL")
+								sheet.write(row,8,"CONTROL",format5)
 							else:
-								sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE")
+								sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
 							if city:
 								city=city.group(1)
 								res=re.sub("[\(\[].*?[\)\]]", "", sem)
@@ -249,20 +277,20 @@ def toexcel(cor,path_original,scount):
 							prec=round(float(prec),2)
 							prec=str(prec)+'%'
 							idd='UID'+str(row)
-							sheet.write(row,0,idd)
-							sheet.write(row,1,res)
-							sheet.write(row,5,prec)
-							sheet.write(row,4,shape)
-							sheet.write(row,6,city)
-							sheet.write(row,7,w)
-							sheet.write(row,3,per)
+							sheet.write(row,0,idd,format3)
+							sheet.write(row,1,res,format2)
+							sheet.write(row,5,prec,format2)
+							sheet.write(row,4,shape,format2)
+							sheet.write(row,6,city,format2)
+							sheet.write(row,7,w,format2)
+							sheet.write(row,3,str(per[0]),format2)
 
-							row=row+1						# sheet.write(row,0,result)
+							row=row+1                       # sheet.write(row,0,result)
 					except Exception as e:
 						print(e)
 						continue
-
-	book.save("graph.xls")
+	# workbook.close()
+	# book.save("graph.xls")
 
 #Function to find city and country
 def citycountname(cityname):
@@ -563,8 +591,6 @@ def textt(dic,n,image_path):
 		res = ' '.join(str(e) for e in temp)
 		return res,prec,shape
 
-# cor=[[156, 274, 316, 325, 97.36135005950928, 'rectangle'], [355, 275, 516, 325, 97.23899364471436, 'rectangle'], [562, 99, 719, 149, 97.17506170272827, 'rectangle'], [382, 99, 542, 149, 96.84385061264038, 'rectangle'], [23, 99, 183, 148, 96.81214690208435, 'rectangle'], [442, 457, 602, 507, 96.20250463485718, 'rectangle'], [179, 186, 338, 237, 95.3770399093628, 'rectangle'], [4, 187, 166, 237, 94.89936828613281, 'rectangle'], [278, 362, 439, 414, 94.42919492721558, 'rectangle'], [74, 363, 234, 415, 94.10572648048401, 'rectangle'], [280, 9, 441, 61, 92.82688498497009, 'rectangle'], [112, 455, 194, 516, 68.0224359035492, 'circle'], [265, 99, 345, 157, 67.23973751068115, 'circle'], [43, 274, 123, 335, 54.711222648620605, 'pentagon'], [584, 188, 692, 252, 52.483564615249634, 'triangle'], [482, 364, 561, 428, 40.776342153549194, 'pentagon']]
-# path_original='ey3.jpg'
-# toexcel(path_original,cor)
+
 
 

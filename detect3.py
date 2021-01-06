@@ -43,7 +43,7 @@ tf.get_logger().setLevel('ERROR')
 #         detectshapescs2(img_p,count,p_count)
 #         count=count-1
 
-def detectshapescs2(IMAGE_PATH,scount):
+def detectshapescs2(IMAGE_PATH,scount,workbook):
     PATH_TO_MODEL_DIR = ''
 
     LABEL_FILENAME = 'label_map.pbtxt'
@@ -127,4 +127,4 @@ def detectshapescs2(IMAGE_PATH,scount):
     im = Image.fromarray(image_np_with_detections)
     im.save('static/images/test4.jpg')
     print("here_org")
-    orgtoxl.toexcel(coordinates,IMAGE_PATH,scount)
+    orgtoxl.toexcel(coordinates,IMAGE_PATH,scount,workbook)

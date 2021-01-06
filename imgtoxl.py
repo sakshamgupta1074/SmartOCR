@@ -13,9 +13,6 @@ from io import BytesIO
 import io
 
 def ocr_excel(cordinates,image_path):
-	
-	
-
 	# Create a workbook and add a worksheet.
 	workbook = xlsxwriter.Workbook('test.xls')
 	worksheet = workbook.add_worksheet()
@@ -122,9 +119,7 @@ def cropocr(dic,row,column,image_path):
 	    else:
 	    	l='100%'
 
-
 # importing xlwt module 
-
 
 	book_ro = open_workbook("test.xls")
 	book = copy(book_ro)  # creates a writeable copy

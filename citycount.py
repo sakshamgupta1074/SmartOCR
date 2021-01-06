@@ -1,6 +1,6 @@
 from geopy.geocoders import Nominatim
 
-geolocator = Nominatim(timeout=3,user_agent="Shivasapp")
+geolocator = Nominatim(timeout=3,user_agent="countrychecker")
 
 def citycountname(cityname):
 	'''
@@ -17,8 +17,3 @@ def citycountname(cityname):
 	else:
 		return (loc_dict['display_name'].rsplit(',' , 1)[0])
 
-
-
-
-
-print(citycountname('Rohtak'))

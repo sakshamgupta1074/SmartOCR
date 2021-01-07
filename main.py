@@ -202,6 +202,81 @@ def alltoexcel(mainfilename):
 		workbook.close()
 		return mainfilename
 
+def alltoexcel_lr(mainfilename):
+	workbook = xlsxwriter.Workbook('graph.xls')
+	# sheet = workbook.add_worksheet("Org_Chart-1")
+	# workbook.close()
+	import ntpath
+	ntpath.basename("a/b/c")
+	head, tail = ntpath.split(mainfilename)
+	print(tail)
+	print(head)
+	if mainfilename.endswith('.pdf'):
+		from wand.image import Image
+		f = mainfilename
+		with(Image(filename=f, resolution=300)) as source:
+			count=0
+			for i, image in enumerate(source.sequence):
+				count=count+1
+				newfilename = head + str(i + 1) + '.jpg'
+				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2_lr(newfilename,"Org_Chart-"+str(count),workbook)
+			workbook.close()
+		return newfilename
+	elif mainfilename.endswith('.ppt'):
+		from wand.image import Image
+		f = mainfilename
+		with(Image(filename=f, resolution=300)) as source:
+			count=0 
+			for i, image in enumerate(source.sequence):
+				count=count+1
+				newfilename = head + str(i + 1) + '.jpg'
+				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2_lr(newfilename,"Org_Chart-"+str(count),workbook)
+			workbook.close()
+		return newfilename
+	elif mainfilename.endswith('.doc'):
+		from wand.image import Image
+		f = mainfilename
+		with(Image(filename=f, resolution=300)) as source:
+			count=0 
+			for i, image in enumerate(source.sequence):
+				count=count+1
+				newfilename = head + str(i + 1) + '.jpg'
+				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2_lr(newfilename,"Org_Chart-"+str(count),workbook)
+			workbook.close()
+		return newfilename
+	elif mainfilename.endswith('.docx'):
+		from wand.image import Image
+		f = mainfilename
+		with(Image(filename=f, resolution=300)) as source: 
+			count=0
+			for i, image in enumerate(source.sequence):
+				count=count+1
+				newfilename = head + str(i + 1) + '.jpg'
+				Image(image).save(filename=newfilename)
+				detect3.detectshapescs2_lr(newfilename,"Org_Chart-"+str(count),workbook)
+			workbook.close()
+		return newfilename
+	elif mainfilename.endswith('.png'):
+		from PIL import Image
+		im = Image.open(mainfilename)
+		rgb_im = im.convert('RGB')
+		rgb_im.save(head+'/'+'tail.jpg')
+		newfile=head+'/'+'tail.jpg'
+		detect3.detectshapescs2_lr(newfile,"Org_Chart-"+str(1),workbook)
+		workbook.close()
+		return head+'/'+'tail.jpg',
+	elif mainfilename.endswith('.jpg'):
+		detect3.detectshapescs2_lr(mainfilename,"Org_Chart-"+str(1),workbook)
+		workbook.close()
+		return mainfilename
+	elif mainfilename.endswith('.jpeg'):
+		detect3.detectshapescs2_lr(mainfilename,"Org_Chart-"+str(1),workbook)
+		workbook.close()
+		return mainfilename
+
 def convertndocr(doc_path):
 	open('file.doc', "w").close()
 	alltojpg(doc_path)

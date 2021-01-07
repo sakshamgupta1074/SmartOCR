@@ -47,7 +47,7 @@ def color(path_original,cor):
 	cv2.imwrite('colored_black.jpg', image)
 
 #Function to convert org chart to excel 
-def toexcel(cor,path_original,scount,workbook):
+def toexcel_lr(cor,path_original,scount,workbook):
 
 	# scount="Org_Chart-1"
 	print("IN SKNW")
@@ -55,7 +55,7 @@ def toexcel(cor,path_original,scount,workbook):
 	color(path_original,cor)
 	path_black='colored_black.jpg'
 	image = cv2.imread(path_original)
-	count,node_levels,ps,g,te= sknw_main(path_black,cor)
+	count,node_levels,ps,g,te= sknw_main_lr(path_black,cor)
 	# if scount!="Org_Chart-1":
 	# 	sheet = workbook.add_worksheet(scount)
 
@@ -137,8 +137,8 @@ def toexcel(cor,path_original,scount,workbook):
 	sheet.write(1,3,'',format2)
 	sheet.write(1,2,'',format2)
 	for i in range(count):
-		coloring(i,node_levels,image,path_original,cor)
-		node_levels,ps,g,te= sknw_loop(cor)
+		coloring_lr(i,node_levels,image,path_original,cor)
+		node_levels,ps,g,te= sknw_loop_lr(cor)
 		for j in range(len(node_levels[i])):
 
 			flag=0
@@ -303,7 +303,7 @@ def citycountname(cityname):
 		return ('-',loc_dict['display_name'].rsplit(',' , 1)[0])
 
 #Function to color levels
-def coloring(xii,node_levelsii,imageii,path_black,coordinates):
+def coloring_lr(xii,node_levelsii,imageii,path_black,coordinates):
 	height, width = imageii.shape[:2]
 	x0=0
 	try:
@@ -322,7 +322,7 @@ def coloring(xii,node_levelsii,imageii,path_black,coordinates):
 	fillbox(path,'imagedraw.jpg',coordinates)
 
 #Function to draw main graph
-def sknw_main(path_black,cor):
+def sknw_main_lr(path_black,cor):
 	image  = cv2.imread(path_black,0)
 	ret,img = cv2.threshold(image, 0, 255,cv2.THRESH_OTSU)
 	binary = img > filters.threshold_otsu(img)
@@ -412,7 +412,7 @@ def sknw_main(path_black,cor):
 	return count,node_levels,ps,g,te
 
 #to draw level graphs
-def sknw_loop(cor):
+def sknw_loop_lr(cor):
 	image  = cv2.imread('imagedraw.jpg',0)
 	ret,img = cv2.threshold(image, 0, 255,cv2.THRESH_OTSU)
 	binary = img > filters.threshold_otsu(img)

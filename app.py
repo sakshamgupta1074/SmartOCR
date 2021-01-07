@@ -24,6 +24,8 @@ def hello2(name = None):
     full_filename='/static/images/test4.jpg'
     return render_template('dwnld2.html',name=name,user_image = full_filename)
 
+
+
 @app.route('/trinityIMG2EXCEL/',methods = ['GET','POST'])
 def upload_file():
     if request.method =='POST':
@@ -43,7 +45,7 @@ def upload_file():
                 main.deletedir()
                 return redirect(url_for('hello2'))
             elif(optn=='op3'):
-                img_loc=main.alltoexcel(location)
+                img_loc=main.alltoexcel_lr(location)
                 main.deletedir()
                 return redirect(url_for('hello2'))
     return render_template('index.html')

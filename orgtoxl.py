@@ -94,7 +94,7 @@ def toexcel_lr(cor,path_original,scount,workbook):
 	sheet.write(0,8,'Country',format1)
 	sheet.set_column('I:I', 20)
 	sheet.write(0,9,'Relationship Type',format1)
-	sheet.set_column('J:J', 40)
+	sheet.set_column('J:J', 55)
 	sheet.write(0,3,'Own Percentage',format1)
 	sheet.set_column('D:D', 15)
 	idd='UID1'
@@ -140,6 +140,8 @@ def toexcel_lr(cor,path_original,scount,workbook):
 	sheet.write(1,7,state,format2)
 	sheet.write(1,3,'',format2)
 	sheet.write(1,2,'',format2)
+	sheet.write(1,9,' If Own Percentage > 50 then CONTROL else IMMATERIAL',format3)
+
 	for i in range(count):
 		coloring_lr(i,node_levels,image,path_original,cor)
 		node_levels,ps,g,te= sknw_loop_lr(cor)
@@ -233,7 +235,8 @@ def toexcel_lr(cor,path_original,scount,workbook):
 					sheet.write(row,5,prec,format2)
 					sheet.write(row,4,shape,format2)
 					sheet.write(row,6,city,format2)
-					sheet.write(row,7,w,format2)
+					sheet.write(row,7,state,format2)
+					sheet.write(row,8,w,format2)
 					sheet.write(row,3,str(per[0]),format2)
 					row=row+1
 					flag=1

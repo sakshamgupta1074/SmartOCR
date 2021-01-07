@@ -296,7 +296,7 @@ def coloring_lr(xii,node_levelsii,imageii,path_black,coordinates):
 		y1=node_levelsii[xii][0][1]-20
 	except Exception as e:
 		print(e)
-		x1=0
+		y1=0
 	y0=0
 	x1=width
 	

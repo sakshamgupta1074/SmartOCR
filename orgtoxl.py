@@ -89,10 +89,12 @@ def toexcel_lr(cor,path_original,scount,workbook):
 	sheet.set_column('E:E', 20)
 	sheet.write(0,6,'City',format1)
 	sheet.set_column('G:G', 20)
-	sheet.write(0,7,'Country',format1)
+	sheet.write(0,7,'State',format1)
 	sheet.set_column('H:H', 20)
-	sheet.write(0,8,'Relationship Type',format1)
-	sheet.set_column('I:I', 40)
+	sheet.write(0,8,'Country',format1)
+	sheet.set_column('I:I', 20)
+	sheet.write(0,9,'Relationship Type',format1)
+	sheet.set_column('J:J', 40)
 	sheet.write(0,3,'Own Percentage',format1)
 	sheet.set_column('D:D', 15)
 	idd='UID1'
@@ -107,24 +109,26 @@ def toexcel_lr(cor,path_original,scount,workbook):
 	if per:
 		res=re.sub(r'\d*%'," ",kk)
 	else:
-		per='100%'
+		per='NA'
 	city = re.search('\(([^)]+)', sem)
 
 	if city:
 		city=city.group(1)
 		res=re.sub("[\(\[].*?[\)\]]", "", sem)
 		try:
-			city,w=citycountname(city)
+			city,state,w=citycountname(city)
 		except Exception as e:
 			print(e)
 			city='-'
 			w='-'
+			state='-'
 		start = sem.find( '(' )
 		if start != -1:
 			res = sem[0:start-1]
 	else:
 		city ='-'
 		w = '-'
+		state='-'
 	prec=round(float(prec),2)
 	prec=str(prec)+'%'
 	sheet.write(1,1,res,format2)
@@ -132,7 +136,8 @@ def toexcel_lr(cor,path_original,scount,workbook):
 	sheet.write(1,5,prec,format2)
 	sheet.write(1,4,shape,format2)
 	sheet.write(1,6,city,format2)
-	sheet.write(1,7,w,format2)
+	sheet.write(1,8,w,format2)
+	sheet.write(1,7,state,format2)
 	sheet.write(1,3,'',format2)
 	sheet.write(1,2,'',format2)
 	for i in range(count):
@@ -160,13 +165,14 @@ def toexcel_lr(cor,path_original,scount,workbook):
 					else:
 						city ='-'
 						w = '-'
+						state='-'
 
 					kk=res
 					per= re.findall('\d*%',kk)
 					if per:
 						res=re.sub(r'\d*%'," ",kk)
 					else:
-						per='100%'
+						per='NA'
 					sheet.write(row,2,res,format2)
 
 					result,prec,shape=textt(te[destination],destination,path_original)
@@ -178,29 +184,41 @@ def toexcel_lr(cor,path_original,scount,workbook):
 						res=re.sub(r'\d*%'," ",kk)
 						# print(per)
 					else:
-						per=['100%']
-					if int(str(per[0])[:-1])>50:
-						sheet.write(row,8,"CONTROL",format5)
-					else:
-						sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+						per='NA'
+
+
+					try:
+						if int(str(per[0])[:-1])>50:
+							sheet.write(row,9,"CONTROL",format5)
+						elif int(str(per[0])[:-1])<50:
+							sheet.write(row,9,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+
+						elif per=='NA':
+							sheet.write(row,9,'NA',format2)
+					except:
+						sheet.write(row,9,'NA',format2)
+
+
 					city = re.search('\(([^)]+)', sem)
 
 					if city:
 						city=city.group(1)
 						res=re.sub("[\(\[].*?[\)\]]", "", sem)
 						try:
-							city,w=citycountname(city)
+							city,state,w=citycountname(city)
 						except Exception as e:
 							print(e)
 							continue
 							city='-'
 							w='-'
+							state='-'
 						start = sem.find( '(' )
 						if start != -1:
 							res = sem[0:start-1]
 					else:
 						city ='-'
 						w = '-'
+						state='-'
 					try:
 						res=re.sub(r'\d*%'," ",res)
 						city=re.sub(r'\d*%'," ",city)
@@ -239,12 +257,13 @@ def toexcel_lr(cor,path_original,scount,workbook):
 							else:
 								city ='-'
 								w = '-'
+								state='-'
 							kk=res
 							per= re.findall('\d*%',kk)
 							if per:
 								res=re.sub(r'\d*%'," ",kk)
 							else:
-								per='100%'
+								per='NA'
 							sheet.write(row,2,res,format2)
 
 							result,prec,shape=textt(te[destination],destination,path_original)
@@ -257,27 +276,36 @@ def toexcel_lr(cor,path_original,scount,workbook):
 								res=re.sub(r'\d*%',' ',kk)
 								# print(per)
 							else:
-								per=['100%']
-							if int(str(per[0])[:-1])>50:
-								sheet.write(row,8,"CONTROL",format5)
-							else:
-								sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+								per='NA'
+							try:
+
+								if int(str(per[0])[:-1])>50:
+									sheet.write(row,9,"CONTROL",format5)
+								elif int(str(per[0])[:-1])<50:
+									sheet.write(row,9,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+
+								elif per=='NA':
+									sheet.write(row,9,'NA',format2)
+							except:
+								sheet.write(row,9,'NA',format2)
 							if city:
 								city=city.group(1)
 								res=re.sub("[\(\[].*?[\)\]]", "", sem)
 								try:
-									city,w=citycountname(city)
+									city,state,w=citycountname(city)
 								except Exception as e:
 									print(e)
 									continue
 									city='-'
 									w='-'
+									state='-'
 								start = sem.find( '(' )
 								if start != -1:
 									res = sem[0:start-1]
 							else:
 								city ='-'
 								w = '-'
+								state='-'
 							try:
 								res=re.sub(r'\d*%'," ",res)
 								city=re.sub(r'\d*%'," ",city)
@@ -292,7 +320,9 @@ def toexcel_lr(cor,path_original,scount,workbook):
 							sheet.write(row,5,prec,format2)
 							sheet.write(row,4,shape,format2)
 							sheet.write(row,6,city,format2)
-							sheet.write(row,7,w,format2)
+							sheet.write(row,7,state,format2)
+							sheet.write(row,8,w,format2)
+				
 							sheet.write(row,3,str(per[0]),format2)
 
 							row=row+1                       # sheet.write(row,0,result)
@@ -535,10 +565,12 @@ def toexcel(cor,path_original,scount,workbook):
 	sheet.set_column('E:E', 20)
 	sheet.write(0,6,'City',format1)
 	sheet.set_column('G:G', 20)
-	sheet.write(0,7,'Country',format1)
+	sheet.write(0,7,'State',format1)
 	sheet.set_column('H:H', 20)
-	sheet.write(0,8,'Relationship Type',format1)
-	sheet.set_column('I:I', 40)
+	sheet.write(0,8,'Country',format1)
+	sheet.set_column('I:I', 20)
+	sheet.write(0,9,'Relationship Type',format1)
+	sheet.set_column('J:J', 55)
 	sheet.write(0,3,'Own Percentage',format1)
 	sheet.set_column('D:D', 15)
 	idd='UID1'
@@ -553,24 +585,26 @@ def toexcel(cor,path_original,scount,workbook):
 	if per:
 		res=re.sub(r'\d*%'," ",kk)
 	else:
-		per='100%'
+		per='NA'
 	city = re.search('\(([^)]+)', sem)
 
 	if city:
 		city=city.group(1)
 		res=re.sub("[\(\[].*?[\)\]]", "", sem)
 		try:
-			city,w=citycountname(city)
+			city,state,w=citycountname(city)
 		except Exception as e:
 			print(e)
 			city='-'
 			w='-'
+			state='-'
 		start = sem.find( '(' )
 		if start != -1:
 			res = sem[0:start-1]
 	else:
 		city ='-'
 		w = '-'
+		state='-'
 	try:
 		res=re.sub(r'\d*%'," ",res)
 		city=re.sub(r'\d*%'," ",city)
@@ -584,9 +618,11 @@ def toexcel(cor,path_original,scount,workbook):
 	sheet.write(1,5,prec,format2)
 	sheet.write(1,4,shape,format2)
 	sheet.write(1,6,city,format2)
-	sheet.write(1,7,w,format2)
+	sheet.write(1,7,state,format2)
+	sheet.write(1,8,w,format2)
 	sheet.write(1,3,'',format2)
 	sheet.write(1,2,'',format2)
+	sheet.write(1,9,' If Own Percentage > 50 then CONTROL else IMMATERIAL',format3)
 	for i in range(count):
 		coloring(i,node_levels,image,path_original,cor)
 		node_levels,ps,g,te= sknw_loop(cor)
@@ -612,13 +648,14 @@ def toexcel(cor,path_original,scount,workbook):
 					else:
 						city ='-'
 						w = '-'
+						state='-'
 
 					kk=res
 					per= re.findall('\d*%',kk)
 					if per:
 						res=re.sub(r'\d*%'," ",kk)
 					else:
-						per='100%'
+						per='NA'
 					sheet.write(row,2,res,format2)
 
 					result,prec,shape=textt(te[destination],destination,path_original)
@@ -630,29 +667,38 @@ def toexcel(cor,path_original,scount,workbook):
 						res=re.sub(r'\d*%'," ",kk)
 						# print(per)
 					else:
-						per=['100%']
-					if int(str(per[0])[:-1])>50:
-						sheet.write(row,8,"CONTROL",format5)
-					else:
-						sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+						per='NA'
+					try:
+
+						if int(str(per[0])[:-1])>50:
+							sheet.write(row,9,"CONTROL",format5)
+						elif int(str(per[0])[:-1])<50:
+							sheet.write(row,9,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+
+						elif per=='NA':
+							sheet.write(row,9,'NA',format2) 
+					except:
+						sheet.write(row,9,'NA',format2)
 					city = re.search('\(([^)]+)', sem)
 
 					if city:
 						city=city.group(1)
 						res=re.sub("[\(\[].*?[\)\]]", "", sem)
 						try:
-							city,w=citycountname(city)
+							city,state,w=citycountname(city)
 						except Exception as e:
 							print(e)
 							continue
 							city='-'
 							w='-'
+							state='-'
 						start = sem.find( '(' )
 						if start != -1:
 							res = sem[0:start-1]
 					else:
 						city ='-'
 						w = '-'
+						state='-'
 					try:
 						res=re.sub(r'\d*%'," ",res)
 						city=re.sub(r'\d*%'," ",city)
@@ -667,7 +713,9 @@ def toexcel(cor,path_original,scount,workbook):
 					sheet.write(row,5,prec,format2)
 					sheet.write(row,4,shape,format2)
 					sheet.write(row,6,city,format2)
-					sheet.write(row,7,w,format2)
+					sheet.write(row,7,state,format2)
+					sheet.write(row,8,w,format2)
+				
 					sheet.write(row,3,str(per[0]),format2)
 					row=row+1
 					flag=1
@@ -691,12 +739,13 @@ def toexcel(cor,path_original,scount,workbook):
 							else:
 								city ='-'
 								w = '-'
+								state='-'
 							kk=res
 							per= re.findall('\d*%',kk)
 							if per:
 								res=re.sub(r'\d*%'," ",kk)
 							else:
-								per='100%'
+								per='NA'
 							sheet.write(row,2,res,format2)
 
 							result,prec,shape=textt(te[destination],destination,path_original)
@@ -709,27 +758,37 @@ def toexcel(cor,path_original,scount,workbook):
 								res=re.sub(r'\d*%'," ",kk)
 								# print(per)
 							else:
-								per=['100%']
-							if int(str(per[0])[:-1])>50:
-								sheet.write(row,8,"CONTROL",format5)
-							else:
-								sheet.write(row,8,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+								per='NA'
+				
+							try:
+
+								if int(str(per[0])[:-1])>50:
+									sheet.write(row,9,"CONTROL",format5)
+								elif int(str(per[0])[:-1])<50:
+									sheet.write(row,9,"IMMATERIAL SIGNIFICANT INFLUENCE",format4)
+
+								elif per=='NA':
+									sheet.write(row,9,'NA',format2)
+							except:
+								sheet.write(row,9,'NA',format2)
 							if city:
 								city=city.group(1)
 								res=re.sub("[\(\[].*?[\)\]]", "", sem)
 								try:
-									city,w=citycountname(city)
+									city,state,w=citycountname(city)
 								except Exception as e:
 									print(e)
 									continue
 									city='-'
 									w='-'
+									state='-'
 								start = sem.find( '(' )
 								if start != -1:
 									res = sem[0:start-1]
 							else:
 								city ='-'
 								w = '-'
+								state='-'
 							try:
 								res=re.sub(r'\d*%'," ",res)
 								city=re.sub(r'\d*%'," ",city)
@@ -744,7 +803,9 @@ def toexcel(cor,path_original,scount,workbook):
 							sheet.write(row,5,prec,format2)
 							sheet.write(row,4,shape,format2)
 							sheet.write(row,6,city,format2)
-							sheet.write(row,7,w,format2)
+							sheet.write(row,7,state,format2)
+							sheet.write(row,8,w,format2)
+				
 							sheet.write(row,3,str(per[0]),format2)
 
 							row=row+1                       # sheet.write(row,0,result)
@@ -761,11 +822,11 @@ def citycountname(cityname):
 	sub=','
 	stateb=len(loc_dict['display_name'].rsplit(',')[0:-1])
 	if stateb==1:
-		return (' ',cityname,loc_dict['display_name'].rsplit(', ' , 1)[1])
+		return ('-',cityname,loc_dict['display_name'].rsplit(', ' , 1)[1])
 	if stateb>1:
 		return (cityname,loc_dict['display_name'].rsplit(', ')[-2],loc_dict['display_name'].rsplit(', ' , 1)[1])
 	elif sub not in loc_dict['display_name']:
-		return (' ',' ',loc_dict['display_name'].rsplit(',' , 1)[0])
+		return ('-','-',loc_dict['display_name'].rsplit(',' , 1)[0])
 
 #Function to color levels
 def coloring(xii,node_levelsii,imageii,path_black,coordinates):

@@ -201,6 +201,12 @@ def toexcel_lr(cor,path_original,scount,workbook):
 					else:
 						city ='-'
 						w = '-'
+					try:
+						res=re.sub(r'\d*%'," ",res)
+						city=re.sub(r'\d*%'," ",city)
+						w=re.sub(r'\d*%'," ",w)
+					except Exception as e:
+						print(e)
 					prec=round(float(prec),2)
 					prec=str(prec)+'%'  
 					idd='UID'+str(row)
@@ -248,7 +254,7 @@ def toexcel_lr(cor,path_original,scount,workbook):
 							kk=res
 							per= re.findall('\d*%',kk)
 							if per:
-								res=re.sub(r'\d*%'," ",kk)
+								res=re.sub(r'\d*%',' ',kk)
 								# print(per)
 							else:
 								per=['100%']
@@ -272,7 +278,12 @@ def toexcel_lr(cor,path_original,scount,workbook):
 							else:
 								city ='-'
 								w = '-'
-
+							try:
+								res=re.sub(r'\d*%'," ",res)
+								city=re.sub(r'\d*%'," ",city)
+								w=re.sub(r'\d*%'," ",w)
+							except Exception as e:
+								print(e)
 							prec=round(float(prec),2)
 							prec=str(prec)+'%'
 							idd='UID'+str(row)
@@ -560,6 +571,12 @@ def toexcel(cor,path_original,scount,workbook):
 	else:
 		city ='-'
 		w = '-'
+	try:
+		res=re.sub(r'\d*%'," ",res)
+		city=re.sub(r'\d*%'," ",city)
+		w=re.sub(r'\d*%'," ",w)
+	except Exception as e:
+		print(e)
 	prec=round(float(prec),2)
 	prec=str(prec)+'%'
 	sheet.write(1,1,res,format2)
@@ -636,6 +653,12 @@ def toexcel(cor,path_original,scount,workbook):
 					else:
 						city ='-'
 						w = '-'
+					try:
+						res=re.sub(r'\d*%'," ",res)
+						city=re.sub(r'\d*%'," ",city)
+						w=re.sub(r'\d*%'," ",w)
+					except Exception as e:
+						print(e)
 					prec=round(float(prec),2)
 					prec=str(prec)+'%'  
 					idd='UID'+str(row)
@@ -707,7 +730,12 @@ def toexcel(cor,path_original,scount,workbook):
 							else:
 								city ='-'
 								w = '-'
-
+							try:
+								res=re.sub(r'\d*%'," ",res)
+								city=re.sub(r'\d*%'," ",city)
+								w=re.sub(r'\d*%'," ",w)
+							except Exception as e:
+								print(e)
 							prec=round(float(prec),2)
 							prec=str(prec)+'%'
 							idd='UID'+str(row)

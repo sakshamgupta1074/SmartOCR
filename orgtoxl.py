@@ -759,10 +759,13 @@ def citycountname(cityname):
 	location = geolocator.geocode(cityname,language='en')
 	loc_dict = location.raw
 	sub=','
-	if sub in loc_dict['display_name']:
-		return (cityname,loc_dict['display_name'].rsplit(', ' , 1)[1])
-	else:
-		return ('-',loc_dict['display_name'].rsplit(',' , 1)[0])
+	stateb=len(loc_dict['display_name'].rsplit(',')[0:-1])
+	if stateb==1:
+		return (' ',cityname,loc_dict['display_name'].rsplit(', ' , 1)[1])
+	if stateb>1:
+		return (cityname,loc_dict['display_name'].rsplit(', ')[-2],loc_dict['display_name'].rsplit(', ' , 1)[1])
+	elif sub not in loc_dict['display_name']:
+		return (' ',' ',loc_dict['display_name'].rsplit(',' , 1)[0])
 
 #Function to color levels
 def coloring(xii,node_levelsii,imageii,path_black,coordinates):

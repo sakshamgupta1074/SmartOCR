@@ -15,7 +15,7 @@
     • Azure Docker
     • Flask RESTful Services
     • GitHub
-    • Pillow
+    • SKNW
     • Wand
     • Azure Docker Registry
     • Azure Web Services

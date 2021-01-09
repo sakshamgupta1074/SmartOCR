@@ -16,6 +16,8 @@ import orgtoxl
 from xlutils.copy import copy    
 from xlrd import open_workbook
 import xlsxwriter
+import leftright
+
 def load_image_into_numpy_array(path):
     """Load an image from file into a numpy array.
 
@@ -213,4 +215,4 @@ def detectshapescs2_lr(IMAGE_PATH,scount,workbook):
     im = Image.fromarray(image_np_with_detections)
     im.save('static/images/test4.jpg')
     print("here_org")
-    orgtoxl.toexcel_lr(coordinates,IMAGE_PATH,scount,workbook)
+    leftright.lefttoright(IMAGE_PATH,coordinates,scount,workbook)

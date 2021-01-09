@@ -3,7 +3,7 @@
 ## Team Name – Trinity
 ## Idea Name – Smart OCR for Organizational Chart
 
-![LOGO (1)](https://user-images.githubusercontent.com/39915573/101401974-1d07e180-38f9-11eb-9f57-ec5c1a230159.png)
+![DOCUMENT](https://user-images.githubusercontent.com/54718939/104107213-99b72280-52e0-11eb-9f8a-61eca1ca4fd7.png)
 
 ### Technology Stack – 
     • TensorFlow
@@ -20,7 +20,7 @@
     • Azure Docker Registry
     • Azure Web Services
 
-![Copy of TECHNOLOGY STACK](https://user-images.githubusercontent.com/54718939/101524235-b0035300-39af-11eb-8a48-68b79faeb2fd.jpg)
+![techstack](https://user-images.githubusercontent.com/54718939/104107221-b05d7980-52e0-11eb-87ad-178542077f93.png)
 
 ***Our objective was to create an algorithm which will work for two different case studies.***
 
@@ -48,8 +48,7 @@ Our algorithm also detect the different types of shapes in organisational chart 
 ### For child-parent relationship: -
 Mid-point of each entity is calculated (using coordinates) and nearest neighbour is found and then the relation between the both is check using Hough lines transformation (line detection) and then the excel is updated.
 
-
-![Line Detection](https://user-images.githubusercontent.com/54718939/101524369-d45f2f80-39af-11eb-8863-54dd9b37d14f.jpg)
+![Copy of Line Detection](https://user-images.githubusercontent.com/54718939/104107234-c9fec100-52e0-11eb-9eff-6351016a04b4.png)
 
 
 Whole process is dockerized so it can easily deployable in any Operating system according to Organizations’ Requirement and on any Cloud Services like Microsoft Azure Cloud.

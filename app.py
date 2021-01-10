@@ -36,15 +36,15 @@ def upload_file():
             filename = file.filename
             location=UPLOAD_FOLDER+'/'+filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-            if(optn=='op1'):
+            if(optn=='op1'):   #Option 1 for Case Study 1
                 main.convertndocr(location)
                 main.deletedir()
                 return redirect(url_for('hello1'))
-            elif(optn=='op2'):
+            elif(optn=='op2'):     #Option 2 for Case Study 2 Top To Bottom Org Charts
                 img_loc=main.alltoexcel(location)
                 main.deletedir()
                 return redirect(url_for('hello2'))
-            elif(optn=='op3'):
+            elif(optn=='op3'):      #Option 3 for Case Study 2 Left To Right Org Charts
                 img_loc=main.alltoexcel_lr(location)
                 main.deletedir()
                 return redirect(url_for('hello2'))
@@ -52,7 +52,7 @@ def upload_file():
 
 
 @app.route("/getfile1/",methods=['GET'])                #Case Study 1 Path
-def getPlotDOC():
+def getPlotDOC():                                       # File Download Module
     with open("file.doc") as fp:
         docc = fp.read()
     return Response(
@@ -63,7 +63,7 @@ def getPlotDOC():
 
 @app.route("/getfile2/",methods=['GET'])                 #Case Study 2 Path
 def getPlotXL():
-    excelDownload = open("graph.xls",'rb').read()
+    excelDownload = open("graph.xls",'rb').read()       # File Download Module
     return Response(
         excelDownload,
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

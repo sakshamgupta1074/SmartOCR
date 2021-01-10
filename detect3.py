@@ -37,14 +37,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 tf.get_logger().setLevel('ERROR')
 
-# def detectmorethanone(img_p,count):
-#     workbook = xlsxwriter.Workbook('graph.xls')
-#     workbook.close()
-#     p_count=count
-#     while(count!=0):
-#         detectshapescs2(img_p,count,p_count)
-#         count=count-1
 
+# FOR Top to Bottom Org Charts
 def detectshapescs2(IMAGE_PATH,scount,workbook):
     PATH_TO_MODEL_DIR = ''
 
@@ -130,7 +124,9 @@ def detectshapescs2(IMAGE_PATH,scount,workbook):
     im.save('static/images/test4.jpg')
     print("here_org")
     orgtoxl.toexcel(coordinates,IMAGE_PATH,scount,workbook)
-
+    
+    
+# FOR Left to Right Org Charts
 def detectshapescs2_lr(IMAGE_PATH,scount,workbook):
     PATH_TO_MODEL_DIR = ''
 

@@ -59,11 +59,11 @@ Whole process is dockerized so it can easily deployable in any Operating system 
 
 ***Youtube Link for the Demonstration Video*** - https://youtu.be/y8ORcCOSLec
 
-***Drive Link for the models*** - https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing
+***Drive Link for the models*** - https://drive.google.com/drive/folders/1t0C4ydQTBpQxl31-u61fuoJL_jvAGkv5?usp=sharing
 
 ## Steps to run the website:
     1. Source code is available in the zip file attached.
-    2. Download the model from the drive link https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing
+    2. Download the model from the drive link https://drive.google.com/drive/folders/1t0C4ydQTBpQxl31-u61fuoJL_jvAGkv5?usp=sharing
     3. Put all the codes and model in the same working directory.
     4. Run the following command on your terminal- pip install requirements.txt.
     5. Now run- python3 app.py.

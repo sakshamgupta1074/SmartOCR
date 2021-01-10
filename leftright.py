@@ -31,12 +31,8 @@ import imageio
 
 
 geolocator = Nominatim(timeout=3,user_agent="countrychecker")
-# cor=[[27, 220, 186, 271, 97.13798761367798, 'rectangle'], [240, 319, 399, 368, 96.84208631515503, 'rectangle'], [454, 220, 612, 270, 96.51206731796265, 'rectangle'], [452, 37, 613, 85, 95.37073373794556, 'rectangle'], [240, 121, 399, 172, 94.61514949798584, 'rectangle'], [453, 405, 612, 455, 94.50072050094604, 'rectangle']]
-# cor.sort()
-# path_original='umeed5.jpg'
 
-
-
+#to color levels
 def color_black(path,cor):
 	image = cv2.imread(path)
 	for dic in cor:
@@ -54,13 +50,14 @@ def color_black(path,cor):
 
 		# cv2.imshow("Polygon", image)
 	cv2.imwrite('colored_black.jpg', image)
-
+	
+# binary erosion of image to plot graph
 def erosion(path):
 	im = imageio.imread(path)
 	im = ndimage.binary_erosion(im).astype(np.float32)
 	imageio.imwrite('erosion.jpg', im)
 
-
+#to find city,state and country from the 1 given in org chart.
 def citycountname(cityname):
 	location = geolocator.geocode(cityname,language='en')
 	loc_dict = location.raw
@@ -74,7 +71,7 @@ def citycountname(cityname):
 		return ('-','-',loc_dict['display_name'].rsplit(',' , 1)[0])
 
 
-
+#to color levels.
 def coloring(xii,nodyii,imageii,path_black,coordinates,ps):
 	height, width = imageii.shape[:2]
 	# nody=[[[57.0, 492.0]], [[172.0, 262.0], [172.66666666666666, 401.3333333333333], [172.66666666666666, 506.3333333333333], [172.66666666666666, 716.3333333333334], [172.75, 629.0]], [[254.0, 342.0], [255.66666666666666, 191.33333333333334], [255.66666666666666, 402.3333333333333], [255.75, 524.0]], [[337.75, 418.0], [338.0, 210.0], [338.6666666666667, 716.3333333333334], [338.75, 825.0], [338.75, 929.0]], [[421.6666666666667, 969.3333333333334], [422.0, 209.5]], [[504.75, 615.0], [505.6666666666667, 139.33333333333334], [506.0, 261.0]], [[588.75, 925.0], [589.0, 287.0]], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
@@ -104,7 +101,7 @@ def coloring(xii,nodyii,imageii,path_black,coordinates,ps):
 	fillbox(path,'imagedraw.jpg',coordinates)
 	# erosion.erosion('imagedraw.jpg')
 
-
+#to plot main graph
 def sknwii(path_black,cor):
 	image  = cv2.imread(path_black,0)
 	ret,img = cv2.threshold(image, 0, 255,cv2.THRESH_OTSU)
@@ -133,17 +130,16 @@ def sknwii(path_black,cor):
 	plt.plot(ps[:,1], ps[:,0], 'r.')
 	
 
-	# title and show
 	plt.title('Built Graph with Nodes(Red) & Edges(Green)')
 	
 	plt.savefig('knw_output.png')
 	plt.show()
 	def FindPoint(x1, y1, x2, y2, x, y): 
 		if (x >= y1 and x <= y2 and y >= x1 and y <= x2): 
-			# ##print("kkkkk")
+			
 			return True
 		else :
-			# ##print("aaaa")
+			
 			return False
 
 
@@ -160,14 +156,13 @@ def sknwii(path_black,cor):
 		for i in ps:
 			x=(i[0])
 			y=(i[1])
-			# ##print(x)
-			# ##print(y)
+			
 			if FindPoint(x1,y1,x2,y2,x,y):
 				fin.append(i)
 				cord_dic.append(dic)
 				a=[x,y]
 				te.update({(ps.index(a)): dic})
-				##print(ps.index(a))
+				
 				break;
 	
 	ps = np.array(ps)
@@ -184,22 +179,20 @@ def sknwii(path_black,cor):
 		
 		matplotlib.pyplot.text(i[1], i[0], str(text),fontsize=12,color='white')
 
-	# ##print(fina)
+	
 	ps=np.array(ps)
 	ps=ps.tolist()
 	final_nodes=fina
-	##print(final_nodes)
+	
 	final_nodes.sort(key = lambda x: x[1])
 	
 	lengthy = len(cor)
 	values=list(te.values())
 	nody = [[] for i in range(lengthy)]
-	# nody=[][]
+	
 	nody[0].append(cor[0])
 	node_val = [[]for i in range(lengthy)]
 	node_val[0].append(list(te.keys())[list(te.values()).index(cor[0])])
-	# node_ps== [[]for i in range(lengthy)]
-	# ##print(nody)
 	a=0
 	for i in range(1,lengthy):
 		if (abs(cor[i][0] - cor[i-1][0])<=10):
@@ -219,15 +212,14 @@ def sknwii(path_black,cor):
 			continue
 		else:
 			count=count+1
-	# ##print("..............................................")
-	# ##print(count)
-	# ##print(len(nody[1]))
-	# ##print("..............................................")
+
 	return count,node_val,ps,graph,te
 nody=[]
 fin=[]
 te={}
 cord_dic=[]
+
+#to plot level graphs
 def sk_se(cor):
 	image  = cv2.imread('imagedraw.jpg',0)
 	ret,img = cv2.threshold(image, 0, 255,cv2.THRESH_OTSU)
@@ -240,23 +232,20 @@ def sk_se(cor):
 	graph = sknw.build_sknw(ske)
 	# draw image
 	plt.imshow(img, cmap='gray')
-	# ##print(nx.info(graph))
+	
 
 	# draw edges by pts
 	for (s,e) in graph.edges():
 		ps = graph[s][e]['pts']
 		plt.plot(ps[:,1], ps[:,0], 'blue')
 		# tolerance = 1
-	# ##print(graph.edges)
+	
 	cord=graph.edges
 		
 	nodes = graph.nodes()
 	ps = np.array([nodes[i]['o'] for i in nodes])
 	plt.plot(ps[:,1], ps[:,0], 'r.')
-	# ##print(ps)
-	# ##print("____________________")
-	##print(graph.nodes)
-	# ##print("____________________")
+	
 	# title and show
 	plt.title('Built Graph with Nodes(Red) & Edges(Green)')
 	# # 
@@ -266,16 +255,13 @@ def sk_se(cor):
 
 	def FindPoint(x1, y1, x2, y2, x, y): 
 		if (x >= y1 and x <= y2 and y >= x1 and y <= x2): 
-			# ##print("kkkkk")
+		
 			return True
 		else :
-			# ##print("aaaa")
+			
 			return False
 
-
 	fin=[]
-
-
 	def prnt(dic,ps,cor):
 		ps=np.array(ps)
 		ps=ps.tolist()
@@ -288,10 +274,9 @@ def sk_se(cor):
 		for i in ps:
 			x=(i[0])
 			y=(i[1])
-			# ##print(x)
-			# ##print(y)
+			
 			if FindPoint(x1,y1,x2,y2,x,y):
-			# ##print("gggg")
+			
 				fin.append(i)
 				cord_dic.append(dic)
 				a=[x,y]
@@ -299,39 +284,29 @@ def sk_se(cor):
 				break;
 	  
 
-	# cor = np.array(cor)
-	# ps = np.array(ps)
+	
 	for dic in cor:
 		prnt(dic,ps,cor)
-	# ocr_text={0: 'AGNICO EAGLE MINES LIMITED (NYSE', 10: 'West Pequcp Project LLC (Nevada)', 12: 'Amico Eagle Mexico, SA de CV', 14: 'Genex Exploration Gorp (Yukon)', 19: 'Agnico Eagle AB (Sweden)', 17: 'Agnice Eagle (Barbados) Lif (Barbados )', 33: 'Ojanv Resources Oy (Finland)', 34: 'Agnios-Eagle (USA) Limited (Nevada)', 39: 'Resources AB (Sweden)', 41: 'Servicios Pinos Altos, SA de CV (Mexicol', 74: 'Penne Insurance Inc. (Barbados)', 73: '1641315 Ontario Inc. (Ontario)', 78: 'Exploration LLC (Nevada)', 82: 'Minera Agave, S.A. de C.V. (Mexico)', 85: 'Agnico-Eagle Mines Sweden Cooperatie U.A (Netherlands)', 94: 'AEUS LLC (Nevada)', 93: 'Annico- Eagle Sweden AB (Sweden)', 111: '1715495 Ontario Inc. (Ontario)', 112: 'Servicios Agnico Estle Mexico, SA do CV (Mexico)', 115: 'Tenedora Amico Eagle Mexico S.A. de C.V. Mexico]', 119: 'Agrico Eagle Mines Mexico Cooperatin U.A.', 121: 'Agnico-Engie Finland Oy (Finland)'}
-	# ##print(fin)
 
-	
-	#print("TE IN SK_sE")
-	#print(te)
 	if len(te) == 0:
 		return node_val,ps,graph,te
 	fin=np.array(fin)
 	fina=fin.tolist()
-	# ##print(fina)
+	
 	ps=np.array(ps)
 	ps=ps.tolist()
 	final_nodes=fina
-	# final_nodes.sort()
+	
 	final_nodes.sort(key = lambda x: x[1])
-	# ##print("mmmm")
-	# ##print(final_nodes)
-	# cor=cor.tolist()
-	# cor.sort()
+
 	lengthy = len(cor)
 	values=list(te.values())
 	nody = [[] for i in range(lengthy)]
-	# nody=[][]
+
 	nody[0].append(cor[0])
 	node_val = [[]for i in range(lengthy)]
 	node_val[0].append(list(te.keys())[list(te.values()).index(cor[0])])
-	# node_ps== [[]for i in range(lengthy)]
-	# ##print(nody)
+	
 	a=0
 	for i in range(1,lengthy):
 		if (abs(cor[i][0] - cor[i-1][0])<=10):
@@ -343,16 +318,13 @@ def sk_se(cor):
 			nody[a].append(cor[i])
 			node_val[a].append(list(te.keys())[list(te.values()).index(cor[i])])
 	
-	# ##print(node_val)
+	
 	for i in fina:
 		plt.plot(i[1], i[0], 'go')
 		text=ps.index([i[0],i[1]])
 		
 		matplotlib.pyplot.text(i[1], i[0], str(text),fontsize=12,color='red')
-	#print("IN SK_SEEEE")
-	#print(node_val)
 
-	# ##print(ps[27])
 	no=[[]]
 	for i in range(lengthy):
 		for j in range(len(node_val[i])):
@@ -363,28 +335,10 @@ def sk_se(cor):
 				
 	return node_val,ps,graph,te
 	
-	#print(no)
-	# nody=node_val
-
-	# g = nx.Graph(graph.edges)
-	# gi = nx.to_directed(graph)
-	# # ##print(graph.edges)
-	# j=[]
-	# index=[]
-	# for j in fina:
-	# 	index.append(ps.index(j))
-
-	# res = {index[i]: cord_dic[i] for i in range(len(index))} 
-	# index.sort()
-
-	# plt.show()
-
-	# ##print("++++++++++++++++++++++")
-	# ##print(g.number_of_nodes())
-
-
+	
+#to fill entity to plot graph
 def fillbox(path,thresh_image,coordinates):
-# path = 'test11.jpg'
+
 	
 	image = cv2.imread(path, 0) 
 		
@@ -402,7 +356,7 @@ def fillbox(path,thresh_image,coordinates):
 	cv2.imwrite(thresh_image,image)
 
 
-
+#to ocr image
 def textt(dic,n,image_path):
 	x1=float(dic[0])
 	y1=float(dic[1])
@@ -485,12 +439,10 @@ def textt(dic,n,image_path):
 				res+=i
 				temp.append(res) 
 		res = ' '.join(str(e) for e in temp)
-		# add_item(ocr_text,res,n)
-		# ##print(n)
-		# ten.update({n:res})
+	
 		return res,prec,shape
 
-
+#main function for module left to right
 def main(path_original,path_black,cor,scount,workbook):
 	nody=[]
 	fin=[]
@@ -498,9 +450,9 @@ def main(path_original,path_black,cor,scount,workbook):
 	cord_dic=[]
 	count=0
 	image = cv2.imread(path_original)
-	# workbook = xlsxwriter.Workbook('graph.xls')
+
 	
-	# 
+
 	if scount!="Org_Chart-1":
 		sheet = workbook.add_worksheet(scount)
 	else:
@@ -538,7 +490,7 @@ def main(path_original,path_black,cor,scount,workbook):
 	row=2
 	te=np.array(te)
 	te=te.tolist()
-	#print(node_val[0][0])
+	
 	result,prec,shape=textt(te[(node_val[0][0])],(node_val[0][0]),path_original)
 
 	sem = result
@@ -582,27 +534,21 @@ def main(path_original,path_black,cor,scount,workbook):
 	sheet.write(1,9,' If Own Percentage > 50 then CONTROL else IMMATERIAL',format3)
 
 	for i in range(count):
-		#print(node_val)
+		
 		coloring(i,node_val,image,path_black,cor,ps)
 		node_val,ps,g,te= sk_se(cor)
-		#print("INnnn")
-		#print(te)
+		
 		if len(te)==0:
 			break
-		##print("IN  main FUNCTION")
-		#print(node_val)
+		
 		for j in range(len(node_val[i])):
-			#print("in 2nd loop")
-			# county=0
+			
 			flag=0
-			#print(i)
-			#print(len(node_val[i]))
-			#print(len(node_val[i+1]))
+		
 			for k in range(len(node_val[i+1])):
 				source=(node_val[i][j])
 				destination=(node_val[i+1][k])
-				#print(source,destination)
-				#print(nx.has_path(g,source,destination))
+				
 				
 				if nx.has_path(g,source,destination):
 					result,prec,shape=textt(te[source],source,path_original)
@@ -636,7 +582,7 @@ def main(path_original,path_black,cor,scount,workbook):
 					per= re.findall('\d*%',kk)
 					if per:
 						res=re.sub(r'\d*%'," ",kk)
-						# #print(per)
+						
 					else:
 						per='NA'
 
@@ -780,17 +726,17 @@ def main(path_original,path_black,cor,scount,workbook):
 				
 							sheet.write(row,3,str(per[0]),format2)
 
-							row=row+1                       # sheet.write(row,0,result)
+							row=row+1                   
 					except Exception as e:
 						print(e)
 						continue
 
 
 
-	# workbook.close()
+	
 
 
-
+#call function of left to right org chart
 def lefttoright(path,corpoints,scount,workbook):
 	path_original=path
 	color_black(path_original,corpoints)

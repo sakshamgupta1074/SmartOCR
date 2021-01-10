@@ -66,5 +66,5 @@ Whole process is dockerized so it can easily deployable in any Operating system 
     2. Download the model from the drive link https://drive.google.com/drive/folders/1KBHge89XX0oQ3nW-dNPmbl3dq1ZT26cn?usp=sharing
     3. Put all the codes and model in the same working directory.
     4. Run the following command on your terminal- pip install requirements.txt.
-    5. Now run- python app.py.
+    5. Now run- python3 app.py.
     6. There you go, you have the website running on your local machine and can test for both the case studies.

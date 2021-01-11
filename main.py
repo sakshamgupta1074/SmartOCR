@@ -77,13 +77,14 @@ def ocr(image_path):
 
 
 
-
+#function to convert all file formats to jpg image file.
 def alltojpg(mainfilename):
 	import ntpath
 	ntpath.basename("a/b/c")
 	head, tail = ntpath.split(mainfilename)
 	print(tail)
 	print(head)
+	#file is in pdf format
 	if mainfilename.endswith('.pdf'):
 		from wand.image import Image
 		f = mainfilename
@@ -92,6 +93,7 @@ def alltojpg(mainfilename):
 				newfilename = head + str(i + 1) + '.jpeg'
 				Image(image).save(filename=newfilename)
 				ocr(newfilename)
+	#file is in ppt format
 	elif mainfilename.endswith('.ppt'):
 		from wand.image import Image
 		f = mainfilename
@@ -100,6 +102,7 @@ def alltojpg(mainfilename):
 				newfilename = head + str(i + 1) + '.jpeg'
 				Image(image).save(filename=newfilename)
 				ocr(newfilename)
+	#file is in doc format
 	elif mainfilename.endswith('.doc'):
 		from wand.image import Image
 		f = mainfilename	
@@ -108,6 +111,7 @@ def alltojpg(mainfilename):
 				newfilename = head + str(i + 1) + '.jpeg'
 				Image(image).save(filename=newfilename)
 				ocr(newfilename)
+	#file is in docx format
 	elif mainfilename.endswith('.docx'):
 		from wand.image import Image
 		f = mainfilename
@@ -116,17 +120,21 @@ def alltojpg(mainfilename):
 				newfilename = head + str(i + 1) + '.jpeg'
 				Image(image).save(filename=newfilename)
 				ocr(newfilename)
+	#file is in png format
 	elif mainfilename.endswith('.png'):
 		from PIL import Image
 		im = Image.open(mainfilename)
 		rgb_im = im.convert('RGB')
 		rgb_im.save(head+'/'+'tail.jpg')
 		ocr(head+'/'+'tail.jpg')
+	#file is in jpg format so will pass the same forward
 	elif mainfilename.endswith('.jpg'):
 		ocr(mainfilename)
+	#file is in jpeg format so will pass the same forward
 	elif mainfilename.endswith('.jpeg'):
 		ocr(mainfilename)
 
+#function to convert every top to down organizational chart in any file format to excel
 def alltoexcel(mainfilename):
 	workbook = xlsxwriter.Workbook('graph.xls')
 	# sheet = workbook.add_worksheet("Org_Chart-1")
@@ -202,6 +210,7 @@ def alltoexcel(mainfilename):
 		workbook.close()
 		return mainfilename
 
+#function to convert every top to down organizational chart in any file format to excel
 def alltoexcel_lr(mainfilename):
 	workbook = xlsxwriter.Workbook('graph.xls')
 	# sheet = workbook.add_worksheet("Org_Chart-1")
@@ -277,10 +286,12 @@ def alltoexcel_lr(mainfilename):
 		workbook.close()
 		return mainfilename
 
+#function to convert any file into editable document
 def convertndocr(doc_path):
 	open('file.doc', "w").close()
 	alltojpg(doc_path)
 
+#function to delete the temporary files stored in the database
 def deletedir():
 	files = glob.glob('/tempwand/*')
 	for f in files:

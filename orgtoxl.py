@@ -367,7 +367,14 @@ def coloring(xii,node_levelsii,imageii,path_black,coordinates):
 	
 	im = Image.open(path_black)
 	draw = ImageDraw.Draw(im)
-	draw.rectangle((y0,x0,y1,x1), fill=(255,255,255), outline=(255,255,255))
+	leni = len(im.getbands())
+	print(leni)
+	if(leni==1):
+		draw.rectangle((y0,x0,y1,x1), fill=(255), outline=(255))
+	elif(leni==2):
+		draw.rectangle((y0,x0,y1,x1), fill=(255,255), outline=(255,255))
+	else:
+		draw.rectangle((y0,x0,y1,x1), fill=(255,255,255), outline=(255,255,255))
 	im.save('imagedraw.jpg')
 	path='imagedraw.jpg'
 	fillbox(path,'imagedraw.jpg',coordinates)
@@ -395,7 +402,7 @@ def sknw_main(path_black,cor):
 
 	#to find nodes between entities
 	def FindPoint(x1, y1, x2, y2, x, y): 
-		if (x > y1 and x < y2 and y > x1 and y < x2): 
+		if (x >= y1 and x <= y2 and y >= x1 and y <= x2): 
 			
 			return True
 		else :
@@ -440,7 +447,7 @@ def sknw_main(path_black,cor):
 	node_val[0].append(ps.index(final_nodes[0]))
 	a=0
 	for i in range(1,lengthy):
-		if ((abs(final_nodes[i][0] - final_nodes[i-1][0]))<=10):
+		if ((abs(final_nodes[i][0] - final_nodes[i-1][0]))<=20):
 			node_levels[a].append(final_nodes[i])
 			node_val[a].append(ps.index(final_nodes[i]))
 		else:
@@ -527,7 +534,7 @@ def sknw_loop(cor):
 	node_val[0].append(ps.index(final_nodes[0]))
 	a=0
 	for i in range(1,lengthy):
-		if ((final_nodes[i][0] - final_nodes[i-1][0])<=10):
+		if ((final_nodes[i][0] - final_nodes[i-1][0])<=20):
 			node_levels[a].append(final_nodes[i])
 			node_val[a].append(ps.index(final_nodes[i]))
 		else:
